@@ -3,7 +3,7 @@
 ## BACKEND API
 
 ## Schema
-![alt text](image-1.png)
+![alt text](image.png)
 
 ## API Documentation
 
@@ -229,6 +229,68 @@ user's information.
       }
     }
     ```
+
+### Get all Training Plans owned by the Current User
+
+Returns all the training plans owned (created) by the current user.
+
+* Require Authentication: true
+* Request
+  * Method: GET
+  * URL: /api/user/training-plans
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      [
+        {
+          "id": 1,
+          "user_id": 1,
+          "activities_id": 1,
+          "title": "Run a marathon in under 4 hours",
+          "body": "This marathon is designed to help you run a marathon in under 4 hours.",
+          "created_at": "2021-11-19 20:39:36",
+          "updated_at": "2021-11-19 20:39:36"
+        }
+      ]
+    }
+    ```
+
+### Get all Saved Training Plans of Current User
+Return all the training plans saved by the current user.
+
+* Require Authentication: true
+* Request
+  * Method: GET
+  * URL: /api/user/training-plans/following
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+       [
+        {
+          "id": 1,
+          "user_id": 1,
+          "title": "Run a marathon in under 4 hours","body": "This marathon is designed to help you run a marathon in under 4 hours.",
+          "created_at": "2021-11-19 20:39:36",
+          "updated_at": "2021-11-19 20:39:36" ,
+        }
+      ]
+    }
+    ```
+
 ## TRAINING PLANS
 
 ### Get all Training Plans
@@ -238,7 +300,7 @@ Return all the training plans.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/trainingplans
+  * URL: /api/training-plans
   * Body: none
 
 * Successful Response
@@ -249,47 +311,15 @@ Return all the training plans.
 
     ```json
     {
-      "Training Plans": [
+        [
         {
           "id": 1,
           "user_id": 1,
           "activities_id": 1,
           "title": "Run a marathon in under 4 hours",
           "body": "This marathon is designed to help you run a marathon in under 4 hours.",
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36"
-        }
-      ]
-    }
-    ```
-
-### Get all Training Plans owned by the Current User
-
-Returns all the training plans owned (created) by the current user.
-
-* Require Authentication: true
-* Request
-  * Method: GET
-  * URL: /api/trainingplans/current
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "Training Plans": [
-        {
-          "id": 1,
-          "user_id": 1,
-          "activities_id": 1,
-          "title": "Run a marathon in under 4 hours",
-          "body": "This marathon is designed to help you run a marathon in under 4 hours.",
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36"
+          "created_at": "2021-11-19 20:39:36",
+          "updated_at": "2021-11-19 20:39:36"
         }
       ]
     }
@@ -302,7 +332,7 @@ Returns the details of a training plan specified by its id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/trainingplans/:planId
+  * URL: /api/training-plans/:planId
   * Body: none
 
 * Successful Response
@@ -313,29 +343,12 @@ Returns the details of a training plan specified by its id.
 
     ```json
     {
-        "id": 1,
-        "user_id": 1,
-        "activities_id": 1,
-        "title": "Run a marathon in under 4 hours",
-        "body": "This marathon is designed to help you run a marathon in under 4 hours.",
-        "createdAt": "2021-11-19 20:39:36",
-        "updatedAt": "2021-11-19 20:39:36",
-      "Activities": [
-        {
-          "id": 1,
-          "title": "8 x 1000m repeats",
-          "body": "This workout will challenge you. The goal is to run each rep at 10K pace. Slowly jog 800m in between sets"
-        },
-        {
-          "id": 2,
-          "title": "5 mile easy run",
-          "body": "Run five miles at a pace 40 seconds slower than your anticapated marathon pace"
-        }
-      ],
-      "Owner": {
-        "id": 1,
-        "userName": "MiddleAgedTodd"
-      }
+    "id": 1,
+    "title": "Run a marathon in under 4 hours",
+    "body": "This marathon is designed to help you run a marathon in under 4 hours.",
+    "created_at": "2021-11-19 20:39:36",
+    "updated_at": "2021-11-19 20:39:36",
+    "username": "MiddleAgedTodd"
     }
     ```
 
@@ -351,6 +364,36 @@ Returns the details of a training plan specified by its id.
     }
     ```
 
+### Get all Activities of a Training Plan
+Return all activities for a training plan specified by plan id.
+
+* Require Authentication: false
+* Request
+  * Method: GET
+  * URL: /api/training-plans/:planId/activity
+  * Body: none
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+        [
+    {
+      "id": 1,
+      "title": "8 x 1000m repeats",
+      "body": "This workout will challenge you. The goal is to run each rep at 10K pace. Slowly jog 800m in between sets"
+    },
+    {
+      "id": 2,
+      "title": "5 mile easy run",
+      "body": "Run five miles at a pace 40 seconds slower than your anticapated marathon pace"
+    }
+  ]
+    }
 ### Create a Training Plan
 
 Creates and returns a new training plan.
@@ -358,7 +401,7 @@ Creates and returns a new training plan.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /api/trainingplans
+  * URL: /api/training-plans
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -382,8 +425,8 @@ Creates and returns a new training plan.
       "user_id": 1,
       "title": "Run a marathon in under 4 hours",
       "body": "This marathon is designed to help you run a marathon in under 4 hours.",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36",
+      "created_at": "2021-11-19 20:39:36",
+      "updated_at": "2021-11-19 20:39:36",
     }
     ```
 
@@ -411,7 +454,7 @@ Create and return a new activity for a training plan specified by id.
 * Require proper authorization: Training Plan must belong to the current user
 * Request
   * Method: POST
-  * URL: /api/trainingplans/:planId/activities
+  * URL: /api/training-plans/:planId/activities
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -457,7 +500,7 @@ Updates and returns an existing training plan.
 * Require proper authorization: Training must belong to the current user
 * Request
   * Method: PUT
-  * URL: /api/trainingplans/:planId
+  * URL: /api/training-plans/:planId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -481,8 +524,8 @@ Updates and returns an existing training plan.
       "user_id": 1,
       "title": "Run a marathon in under 4 hours",
       "body": "This marathon is designed to help you run a marathon in under 4 hours.",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36",
+      "created_at": "2021-11-19 20:39:36",
+      "updated_at": "2021-11-19 20:39:36",
     }
     ```
 
@@ -522,7 +565,7 @@ Deletes an existing training plan.
 * Require proper authorization: Training plan must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /api/trainingplans/:planId
+  * URL: /api/training-plans/:planId
   * Body: none
 
 * Successful Response
@@ -555,7 +598,7 @@ Return all training plan comments for a training plan specified by plan id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/trainingplans/:planId/comments
+  * URL: /api/training-plans/:planId/comments
   * Body: none
 
 * Successful Response
@@ -566,7 +609,7 @@ Return all training plan comments for a training plan specified by plan id.
 
     ```json
     {
-    "TrainingPlanComments": [
+        [
         {
           "User": {
             "email": "demo@aa.io",
@@ -577,8 +620,8 @@ Return all training plan comments for a training plan specified by plan id.
           "id": 1,
           "training_plan_id": 2,
           "user_id": 1,
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36"
+          "created_at": "2021-11-19 20:39:36",
+          "updated_at": "2021-11-19 20:39:36"
         },
       ]
     }
@@ -589,7 +632,7 @@ Create and return a new comment for a training plan specified by plan id.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /api/trainingplans/:planId/comments
+  * URL: /api/training-plans/:planId/comments
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -612,8 +655,8 @@ Create and return a new comment for a training plan specified by plan id.
       "user_id": 1,
       "training_plan_id": 1,
       "comment": "This plan is intense!",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36"
+      "created_at": "2021-11-19 20:39:36",
+      "updated_at": "2021-11-19 20:39:36"
     }
     ```
 
@@ -631,6 +674,111 @@ Create and return a new comment for a training plan specified by plan id.
       }
     }
     ```
+
+### Get all Tags of a Training Plan
+Returns all the tags of a specific training plan based on its id.
+
+* Require Authentication: false
+* Request
+  * Method: GET
+  * URL: /api/training-plans/:planId/tags
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      [
+        {
+          "id": 2,
+          "name": "5K"
+        },
+        {
+          "id": 3,
+          "name": "Beginner"
+        }
+      ]
+    }
+    ```
+* Error response: Couldn't find a Training Plan with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "error": "Training Plan not found"
+    }
+    ```
+
+### Add a Tag For a Training Plan
+Create if not exist and return all tags for a given training plan with the specified id.
+
+* Require Authentication: true
+* Require proper authorization: Training Plan must belong to the logged in user
+* Request
+  * Method: POST
+  * URL: /api/training-plans/:planId/tags/:tagId
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "name": "Marathon"
+    }
+    ```
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "id": 2,
+      "name": "Marathon"
+    }
+    ```
+
+* Error response: Body validation errors
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      {
+        "name": [
+          "Tag name must be less than 20 characters",
+          // and/or
+          "Tag name must not have space",
+          // and/or
+          "This field is required"
+        ]
+      }
+    }
+    ```
+
+* Error response: Couldn't find a Training Plan with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "error": "Training Plan not found"
+    }
+    ```
+
 ### Delete a Tag from a Training Plan
 Remove a tag from a training plan's tags.
 
@@ -638,7 +786,7 @@ Remove a tag from a training plan's tags.
 * Require proper authorization: Question must belong to the logged in user
 * Request
   * Method: DELETE
-  * URL: /api/trainingplans/tags/:planId/:tagId
+  * URL: /api/training-plans/:planId/tags/:tagId
   * Body: none
 
 * Successful Response
@@ -683,7 +831,7 @@ Get all questions associated to a specific tag
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/trainingplans/tags/:tagId
+  * URL: /api/training-plans/tags/:tagId
   * Body: none
 
 * Successful Response
@@ -695,13 +843,126 @@ Get all questions associated to a specific tag
     ```json
     {
       "name": "Half Marathon",
-      "Plans": [
+       [
         {
           "id": 1,
           "title": "Run a half marathon in under 2 hours",
           "body": "This half marathon is designed to help you run a marathon in under 2 hours.",
         }
       ]
+    }
+    ```
+
+### Save a Training Plan for Later
+Save a training plan for later specified by id.
+
+* Require Authentication: true
+* Request
+  * Method: POST
+  * URL: /api/training-plans/:planId/follow
+  * Headers:
+    * Content-Type: application/json
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Saved for later"
+    }
+    ```
+
+* Error response: Couldn't find a training plan with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Question couldn't be found"
+    }
+    ```
+
+* Error response: The current user has already saved this training plan
+  * Status Code: 500
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "This plan has already been saved"
+    }
+    ```
+
+### Unsave a Training Plan
+Unsaves a training plan.
+
+* Require Authentication: true
+* Require proper authorization: Training Plan must be saved by the current user
+* Request
+  * Method: DELETE
+  * URL: /api/training-plans/:planId/follow
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Training Plan unsaved"
+    }
+    ```
+
+* Error response: Couldn't find a saved training plan with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Training Plan couldn't be found in your saved list"
+    }
+    ```
+
+### Delete a Training Plan Comment
+Delete an existing Training Plan Comment.
+
+* Require Authentication: true
+* Request
+  * Method: DELETE
+  * URL: /api/training-plans/comments/:commentId
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Successfully deleted"
+    }
+    ```
+
+* Error response: Couldn't find a Training Plan Comment with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Comment couldn't be found"
     }
     ```
 
@@ -713,7 +974,7 @@ Update and return an existing training plan comment.
 * Require Authentication: true
 * Request
   * Method: PUT
-  * URL: /api/trainingplans/comments/:commentId
+  * URL: /api/training-plan-comments/:commentId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -736,8 +997,8 @@ Update and return an existing training plan comment.
       "user_id": 1,
       "training_plan_id": 1,
       "comment": "This plan is great!",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36"
+      "created_at": "2021-11-19 20:39:36",
+      "updated_at": "2021-11-19 20:39:36"
     }
     ```
 
@@ -765,40 +1026,6 @@ Update and return an existing training plan comment.
     {
       "message": "Comment couldn't be found"
     }
-
-
-### Delete a Training Plan Comment
-Delete an existing Training Plan Comment.
-
-* Require Authentication: true
-* Request
-  * Method: DELETE
-  * URL: /api/trainingplans/comments/:commentId
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "message": "Successfully deleted"
-    }
-    ```
-
-* Error response: Couldn't find a Training Plan Comment with the specified id
-  * Status Code: 404
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "message": "Comment couldn't be found"
-    }
-    ```
 
 ## Activities
 
@@ -834,8 +1061,8 @@ Update and return an existing activity.
       "user_id": 1,
       "title": "Run a marathon in under 4 hours",
       "body": "This marathon is designed to help you run a marathon in under 4 hours.",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36",
+      "created_at": "2021-11-19 20:39:36",
+      "updated_at": "2021-11-19 20:39:36",
     }
     ```
 
@@ -960,7 +1187,7 @@ Update and return an existing activity comment.
 * Require Authentication: true
 * Request
   * Method: PUT
-  * URL: /api/activity/comments/:activityId
+  * URL: /api/activity-comments/:commentId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -983,8 +1210,8 @@ Update and return an existing activity comment.
       "user_id": 1,
       "activity_id": 1,
       "comment": "I don't know my 5K pace, what's the best way to find out, aside from running an all out 5K?",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36"
+      "created_at": "2021-11-19 20:39:36",
+      "updated_at": "2021-11-19 20:39:36"
     }
     ```
 
@@ -1047,182 +1274,8 @@ Delete an existing Activity Comment.
     }
     ```
 
-## Follow/Save for Later
-
-
-### Get all Saved Training Plans of Current User
-Return all the training plans saved by the current user.
-
-* Require Authentication: true
-* Request
-  * Method: GET
-  * URL: /api/trainingplans/saved
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "Saved": [
-        {
-          "id": 1,
-          "user_id": 1,
-          "title": "Run a marathon in under 4 hours","body": "This marathon is designed to help you run a marathon in under 4 hours.",
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36" ,
-        }
-      ]
-    }
-    ```
-
-### Save a Training Plan for Later
-Save a training plan for later specified by id.
-
-* Require Authentication: true
-* Request
-  * Method: POST
-  * URL: /api/trainingplans/:planId/saved
-  * Headers:
-    * Content-Type: application/json
-
-* Successful Response
-  * Status Code: 201
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "message": "Saved for later"
-    }
-    ```
-
-* Error response: Couldn't find a training plan with the specified id
-  * Status Code: 404
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "message": "Question couldn't be found"
-    }
-    ```
-
-* Error response: The current user has already saved this training plan
-  * Status Code: 500
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "message": "This plan has already been saved"
-    }
-    ```
-
-### Unsave a Training Plan
-Unsaves a training plan.
-
-* Require Authentication: true
-* Require proper authorization: Training Plan must be saved by the current user
-* Request
-  * Method: DELETE
-  * URL: /api/trainingplans/:planId/saved
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "message": "Training Plan unsaved"
-    }
-    ```
-
-* Error response: Couldn't find a saved training plan with the specified id
-  * Status Code: 404
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "message": "Training Plan couldn't be found in your saved list"
-    }
-    ```
 
 ## Tags
-
-### Add a Tag For a Training Plan
-Create if not exist and return all tags for a given training plan with the specified id.
-
-* Require Authentication: true
-* Require proper authorization: Training Plan must belong to the logged in user
-* Request
-  * Method: POST
-  * URL: /api/tags/trainingplans/:planId
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "name": "Marathon"
-    }
-    ```
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "id": 2,
-      "name": "Marathon"
-    }
-    ```
-
-* Error response: Body validation errors
-  * Status Code: 400
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      {
-        "name": [
-          "Tag name must be less than 20 characters",
-          // and/or
-          "Tag name must not have space",
-          // and/or
-          "This field is required"
-        ]
-      }
-    }
-    ```
-
-* Error response: Couldn't find a Training Plan with the specified id
-  * Status Code: 404
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "error": "Training Plan not found"
-    }
-    ```
 
 ### Get all Tags
 Returns all the tags.
@@ -1241,7 +1294,7 @@ Returns all the tags.
 
     ```json
     {
-      "Tags": [
+       [
         {
           "id": 1,
           "name": "5K",
@@ -1258,47 +1311,5 @@ Returns all the tags.
           "numPlans": 1
         }
       ]
-    }
-    ```
-
-### Get all Tags of a Training Plan
-Returns all the tags of a specific training plan based on its id.
-
-* Require Authentication: false
-* Request
-  * Method: GET
-  * URL: /api/tags/trainingplans/:planId
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "id": 1,
-      "Tags": [
-        {
-          "id": 2,
-          "name": "5K"
-        },
-        {
-          "id": 3,
-          "name": "Beginner"
-        }
-      ]
-    }
-    ```
-* Error response: Couldn't find a Training Plan with the specified id
-  * Status Code: 404
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "error": "Training Plan not found"
     }
     ```
