@@ -13,7 +13,7 @@ class TrainingPlanFollowing(db.Model):
     created_at = db.Column(db.TIMESTAMP(timezone=True))
 
     user = db.relationship('User', back_populates='training_plan_following')
-    training_plan = db.relationship('TrainingPlan', back_populates='training_plan_following')
+    training_plans = db.relationship('TrainingPlan', back_populates='training_plan_following')
 
     def to_dict(self):
         return {

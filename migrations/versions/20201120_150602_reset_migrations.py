@@ -43,11 +43,11 @@ def upgrade():
     sa.Column('title', sa.String(length=5000), nullable=False),
     sa.Column('body', sa.String(length=250), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('activities_id', sa.Integer(), nullable=False),
+    sa.Column('activity_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
     sa.Column('updated_at', sa.TIMESTAMP(timezone=True)),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['activities_id'], ['activities.id'], ),
+    sa.ForeignKeyConstraint(['activity_id'], ['activities.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
 
@@ -89,7 +89,7 @@ def upgrade():
     sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('user_id')
     )
 
     if environment == "production":
@@ -127,7 +127,7 @@ def upgrade():
     sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
     sa.Column('updated_at', sa.TIMESTAMP(timezone=True)),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['activities_id'], ['activities.id'], ),
+    sa.ForeignKeyConstraint(['activity_id'], ['activities.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
 
@@ -140,7 +140,7 @@ def upgrade():
     sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
     sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('training_plan_id')
     )
 
     if environment == "production":

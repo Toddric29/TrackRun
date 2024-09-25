@@ -11,7 +11,7 @@ class TagCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(5000), nullable=False)
 
-    tag = db.relationship('Tag', back_populates='tag_category')
+    tags = db.relationship('Tag', back_populates='tag_category')
 
     def to_dict(self):
         return {

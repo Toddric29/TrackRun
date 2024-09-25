@@ -14,8 +14,8 @@ class Tag(db.Model):
     created_at = db.Column(db.TIMESTAMP(timezone=True))
     updated_at = db.Column(db.TIMESTAMP(timezone=True))
 
-    tag_category = db.relationship('TagCategory', back_populates='tags', cascade="all, delete-orphan")
-    training_plan_tag = db.relationship('TrainingPlanTag', back_populates='tags', cascade="all, delete-orphan")
+    tag_category = db.relationship('TagCategory', back_populates='tags')
+    training_plan_tags = db.relationship('TrainingPlanTag', back_populates='tags', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
