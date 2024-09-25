@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-
+from sqlalchemy import func
 
 
 class ActivityComment(db.Model):
@@ -12,8 +12,8 @@ class ActivityComment(db.Model):
     comment = db.Column(db.String(5000), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     activity_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("activities.id")), nullable=False)
-    created_at = db.Column(db.TIMESTAMP(timezone=True))
-    updated_at = db.Column(db.TIMESTAMP(timezone=True))
+    created_at = db.Column(db.TIMESTAMP(timezone=True), server_default=func.now())
+    updated_at = db.Column(db.TIMESTAMP(timezone=True), onupdate=func.now(), server_default=func.now())
 
     user = db.relationship('User', back_populates='activity_comments')
     activities = db.relationship('Activity', back_populates='activity_comments')

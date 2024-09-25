@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-
+from sqlalchemy import func
 
 
 class Tag(db.Model):
@@ -11,8 +11,8 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(5000), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("tag_category.id")), nullable=False)
-    created_at = db.Column(db.TIMESTAMP(timezone=True))
-    updated_at = db.Column(db.TIMESTAMP(timezone=True))
+    created_at = db.Column(db.TIMESTAMP(timezone=True), server_default=func.now())
+    updated_at = db.Column(db.TIMESTAMP(timezone=True), onupdate=func.now(), server_default=func.now())
 
     tag_category = db.relationship('TagCategory', back_populates='tags')
     training_plan_tags = db.relationship('TrainingPlanTag', back_populates='tags', cascade="all, delete-orphan")

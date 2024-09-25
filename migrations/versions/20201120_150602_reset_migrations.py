@@ -7,6 +7,7 @@ Create Date: 2020-11-20 15:06:02.230689
 """
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy.sql import func
 
 import os
 environment = os.getenv("FLASK_ENV")
@@ -27,8 +28,8 @@ def upgrade():
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
-    sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
-    sa.Column('updated_at', sa.TIMESTAMP(timezone=True)),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
+    sa.Column('updated_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now(), onupdate=sa.func.now()),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -44,8 +45,8 @@ def upgrade():
     sa.Column('body', sa.String(length=250), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('activity_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
-    sa.Column('updated_at', sa.TIMESTAMP(timezone=True)),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
+    sa.Column('updated_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now(), onupdate=sa.func.now()),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['activity_id'], ['activities.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -59,8 +60,8 @@ def upgrade():
     sa.Column('title', sa.String(length=5000), nullable=False),
     sa.Column('body', sa.String(length=250), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
-    sa.Column('updated_at', sa.TIMESTAMP(timezone=True)),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
+    sa.Column('updated_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now(), onupdate=sa.func.now()),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -73,8 +74,8 @@ def upgrade():
     sa.Column('comment', sa.String(length=5000), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('training_plan_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
-    sa.Column('updated_at', sa.TIMESTAMP(timezone=True)),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
+    sa.Column('updated_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now(), onupdate=sa.func.now()),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -86,7 +87,7 @@ def upgrade():
     op.create_table('training_plan_following',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('training_plan_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
     sa.PrimaryKeyConstraint('user_id')
@@ -109,8 +110,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=5000), nullable=False),
     sa.Column('category_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
-    sa.Column('updated_at', sa.TIMESTAMP(timezone=True)),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
+    sa.Column('updated_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now(), onupdate=sa.func.now()),
     sa.ForeignKeyConstraint(['category_id'], ['tag_category.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
@@ -124,8 +125,8 @@ def upgrade():
     sa.Column('comment', sa.String(length=5000), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('activity_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
-    sa.Column('updated_at', sa.TIMESTAMP(timezone=True)),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
+    sa.Column('updated_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now(), onupdate=sa.func.now()),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['activity_id'], ['activities.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -137,7 +138,7 @@ def upgrade():
     op.create_table('training_plan_tags',
     sa.Column('training_plan_id', sa.Integer(), nullable=False),
     sa.Column('tag_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.TIMESTAMP(timezone=True)),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
     sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
     sa.PrimaryKeyConstraint('training_plan_id')

@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-
+from sqlalchemy import func
 
 
 class Activity(db.Model):
@@ -12,8 +12,8 @@ class Activity(db.Model):
     title = db.Column(db.String(5000), nullable=False)
     body = db.Column(db.String(250), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    created_at = db.Column(db.TIMESTAMP(timezone=True))
-    updated_at = db.Column(db.TIMESTAMP(timezone=True))
+    created_at = db.Column(db.TIMESTAMP(timezone=True), server_default=func.now())
+    updated_at = db.Column(db.TIMESTAMP(timezone=True), onupdate=func.now(), server_default=func.now())
 
     user = db.relationship('User', back_populates='activities')
     training_plans = db.relationship('TrainingPlan', back_populates='activities')
