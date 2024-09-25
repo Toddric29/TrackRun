@@ -8,12 +8,12 @@ class TrainingPlanFollowing(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    training_plan_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("training_plans.id")), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True,nullable=False)
+    training_plan_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("training_plans.id")), primary_key=True,nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=True))
 
     user = db.relationship('User', back_populates='training_plan_following')
-    training_plan = db.relationship('TrainingPlan', back_ppopulates='training_plan_following')
+    training_plan = db.relationship('TrainingPlan', back_populates='training_plan_following')
 
     def to_dict(self):
         return {

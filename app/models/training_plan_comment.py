@@ -16,7 +16,7 @@ class TrainingPlanComment(db.Model):
     updated_at = db.Column(db.TIMESTAMP(timezone=True))
 
     user = db.relationship('User', back_populates='training_plan_comments')
-    training_plans = db.relationship('TrainingPlan', back_ppopulates='training_plan_comments')
+    training_plans = db.relationship('TrainingPlan', back_populates='training_plan_comments')
 
     def to_dict(self):
         return {
