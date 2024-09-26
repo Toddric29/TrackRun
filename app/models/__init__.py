@@ -8,4 +8,5 @@ from .training_plan_comment import TrainingPlanComment
 from .training_plan_following import TrainingPlanFollowing
 from .training_plan_tag import TrainingPlanTag
 from .training_plan import TrainingPlan
+from .training_plan_activities import TrainingPlanActivities
 from .db import environment, SCHEMA
