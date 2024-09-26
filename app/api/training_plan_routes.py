@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
-from app.models import User, TrainingPlan, TrainingPlanFollowing, Activity
+from app.models import User, TrainingPlan, TrainingPlanFollowing, Activity, TrainingPlanActivity
 
 training_plan_routes = Blueprint('training-plans', __name__)
 
@@ -31,12 +31,15 @@ def get_plan(id):
 "Get all activities for a training plan"
 @training_plan_routes.route('/<int:id>/activity')
 def get_activities(id):
-    activities = TrainingPlan.query.options(joinedload(TrainingPlan.activities, innerjoin=True)).get(id)
-    if not activities:
+    plan = TrainingPlan.query.options(joinedload(TrainingPlan.training_plan_activities).joinedload(TrainingPlanActivity.activities)).get(id)
+
+    if not plan:
         return jsonify({"error": "Training plan couldn't be found"}), 404
 
-    return jsonify({
-        'id': activities.activities.id,
-        'title': activities.activities.title,
-        'body': activities.activities.body
-    })
+    response = [
+        {
+            'id': activity.activities.id,
+            'title': activity.activities.title,
+            'body': activity.activities.body
+        } for activity in plan.training_plan_activities]
+    return jsonify(response)

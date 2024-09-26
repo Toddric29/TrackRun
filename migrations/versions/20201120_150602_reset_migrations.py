@@ -151,8 +151,7 @@ def upgrade():
     sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
     sa.ForeignKeyConstraint(['activity_id'], ['activity.id'], ),
-    sa.PrimaryKeyConstraint('training_plan_id'),
-    sa.PrimaryKeyConstraint('activity_id')
+    sa.PrimaryKeyConstraint('training_plan_id', 'activity_id')
     )
 
     if environment == "production":
