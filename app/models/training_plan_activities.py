@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import func
 
 
-class TrainingPlanActivities(db.Model):
+class TrainingPlanActivity(db.Model):
     __tablename__ = 'training_plan_activities'
 
     if environment == "production":
@@ -13,7 +13,7 @@ class TrainingPlanActivities(db.Model):
     order = db.Column(db.Integer)
     created_at = db.Column(db.TIMESTAMP(timezone=True), server_default=func.now())
 
-    user = db.relationship('User', back_populates='training_plan_activities')
+    training_plans = db.relationship('TrainingPlan', back_populates='training_plan_activities')
     activities = db.relationship('Activity', back_populates='training_plan_activities')
 
     def to_dict(self):

@@ -1,4 +1,4 @@
-from app.models import db, TrainingPlanActivities, environment, SCHEMA
+from app.models import db, TrainingPlanActivity, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_training_plan_activities():
