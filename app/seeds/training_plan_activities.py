@@ -2,21 +2,21 @@ from app.models import db, TrainingPlanActivity, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_training_plan_activities():
-    demo = TrainingPlanActivities(
+    demo = TrainingPlanActivity(
         training_plan_id=2, activity_id=1, order=1
     )
-    demo2 = TrainingPlanActivities(
+    demo2 = TrainingPlanActivity(
         training_plan_id=4, activity_id=2, order=1
     )
-    demo3 = TrainingPlanActivities(
+    demo3 = TrainingPlanActivity(
         training_plan_id=3, activity_id=3, order=1
     )
 
-    demo4 = TrainingPlanActivities(
+    demo4 = TrainingPlanActivity(
         training_plan_id=2, activity_id=4, order=1
     )
 
-    demo5 = TrainingPlanActivities(
+    demo5 = TrainingPlanActivity(
         training_plan_id=1, activity_id=4, order=1
     )
     db.session.add(demo)

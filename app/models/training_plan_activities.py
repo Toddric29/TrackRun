@@ -9,7 +9,7 @@ class TrainingPlanActivity(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     training_plan_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("training_plans.id")), primary_key=True,nullable=False)
-    activity_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("activity.id")), primary_key=True,nullable=False)
+    activity_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("activities.id")), primary_key=True,nullable=False)
     order = db.Column(db.Integer)
     created_at = db.Column(db.TIMESTAMP(timezone=True), server_default=func.now())
 
