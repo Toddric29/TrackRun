@@ -10,7 +10,7 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(5000), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("tag_category.id")), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("tag_category.id")), nullable=True)
     created_at = db.Column(db.TIMESTAMP(timezone=True), server_default=func.now())
     updated_at = db.Column(db.TIMESTAMP(timezone=True), onupdate=func.now(), server_default=func.now())
 

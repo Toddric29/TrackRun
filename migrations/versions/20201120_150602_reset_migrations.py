@@ -109,7 +109,7 @@ def upgrade():
     op.create_table('tags',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=5000), nullable=False),
-    sa.Column('category_id', sa.Integer(), nullable=False),
+    sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
     sa.Column('updated_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now(), onupdate=sa.func.now()),
     sa.ForeignKeyConstraint(['category_id'], ['tag_category.id'], ),
@@ -141,7 +141,7 @@ def upgrade():
     sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
     sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
-    sa.PrimaryKeyConstraint('training_plan_id')
+    sa.PrimaryKeyConstraint('training_plan_id', 'tag_id')
     )
 
     op.create_table('training_plan_activities',
