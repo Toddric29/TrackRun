@@ -90,7 +90,7 @@ def upgrade():
     sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
-    sa.PrimaryKeyConstraint('user_id')
+    sa.PrimaryKeyConstraint('user_id', 'training_plan_id')
     )
 
     if environment == "production":

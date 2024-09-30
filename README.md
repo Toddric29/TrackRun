@@ -883,7 +883,7 @@ Save a training plan for later specified by id.
 
     ```json
     {
-      "message": "Question couldn't be found"
+      "message": "Training Plan couldn't be found"
     }
     ```
 
@@ -1179,7 +1179,7 @@ Create and return a new activity comment for an activity specified by activity i
     }
     ```
 
-## Activity Plan Comments
+## Activity Comments
 
 ### Edit a Activity Comment
 Update and return an existing activity comment.

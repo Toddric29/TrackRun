@@ -18,7 +18,7 @@ class Activity(db.Model):
     user = db.relationship('User', back_populates='activities')
     # training_plans = db.relationship('TrainingPlan', back_populates='activities')
     activity_comments = db.relationship('ActivityComment', back_populates='activities', cascade="all, delete-orphan")
-    training_plan_activities = db.relationship('TrainingPlanActivity', back_populates='activities')
+    training_plan_activities = db.relationship('TrainingPlanActivity', back_populates='activities', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
