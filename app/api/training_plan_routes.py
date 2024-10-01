@@ -94,7 +94,7 @@ def create_activity(id):
        planactivity = TrainingPlanActivity(
           training_plan_id = id,
           activity_id = activity.id,
-          order = 1
+          activity_order = 1
        )
        db.session.add(planactivity)
        db.session.commit()
