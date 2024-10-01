@@ -4,20 +4,20 @@ from sqlalchemy.sql import text
 def seed_training_plan():
     demo = TrainingPlan(
         title='Intense Marathon Training Plan', body='This 6 month program is desgined to help you break 3 hours and 30 minutes in the marathon.',
-        user_id=1, activity_id=2
+        user_id=1
     )
     demo2 = TrainingPlan(
         title='Half Marathon Training Plan', body='This 6 month program is desgined to help you break 2 hours in the half marathon.',
-        user_id=3, activity_id=1
+        user_id=3
     )
     demo3 = TrainingPlan(
         title='5K Training Plan', body='This 3 month program is desgined to help you break 20 minutes in the 5K.',
-        user_id=2, activity_id=3
+        user_id=2
     )
 
     demo4 = TrainingPlan(
         title='10K Training Plan', body='This 3 month program is desgined to help you break 50 minutes in the 10K.',
-        user_id=4, activity_id=4
+        user_id=4
     )
 
     db.session.add(demo)
