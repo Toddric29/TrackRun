@@ -5,14 +5,20 @@ const getAllUsers = (payload) => ({
     payload
 })
 
+const getUser = (payload) => ({
+    type: LOAD_USERS,
+    payload
+})
+
 export const fetchUsers = () => async (dispatch) => {
-    const res = await fetch('/api/session/')
+    const res = await fetch('/api/users/')
 
     if (res.ok) {
         const data = await res.json()
         dispatch(getAllUsers(data))
     }
 }
+
 
 const initialState = {allUsers: {}};
 

@@ -61,6 +61,7 @@ def create_plan():
         db.session.add(plan)
         db.session.commit()
         res = {
+           "id": plan.id,
             "title": plan.title,
             "body": plan.body,
             "user_id": current_user.id,
