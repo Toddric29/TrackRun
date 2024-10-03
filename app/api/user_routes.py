@@ -34,7 +34,6 @@ def user_plans():
             {
                 'id': plan.id,
                 'user_id': plan.user_id,
-                'activity_id': plan.activity_id,
                 'title': plan.title,
                 'body': plan.body,
                 'created_at': plan.created_at,

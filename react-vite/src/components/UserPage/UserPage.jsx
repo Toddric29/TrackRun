@@ -15,11 +15,11 @@ const LoadUsers = () => {
         .then(() => setIsLoaded(true))
     }, [dispatch])
 
-    if (!isLoaded) {
-        return (
-            <h1>Loading...</h1>
-        )
-    }
+    // if (!isLoaded) {
+    //     return (
+    //         <h1>Loading...</h1>
+    //     )
+    // }
 
     return (
         <div className='users'>{Object.values(userList).map(user => {

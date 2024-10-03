@@ -6,6 +6,8 @@ import LoadUsers from '../components/UserPage/UserPage';
 import AllPlans from '../components/AllPlans/AllPlans';
 import PlanDetails from '../components/PlanDetails/PlanDetails';
 import CreatePlanForm from '../components/NewPlan/NewPlan';
+import UserDetails from '../components/UserDetails/UserDetails';
+import EditPlanForm from '../components/UpdatePlan/UpdatePlan';
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ export const router = createBrowserRouter([
       {
         path: "training-plans/new",
         element: <CreatePlanForm />,
+      },
+      {
+        path: "users/:userId",
+        element: <UserDetails />,
+      },
+      {
+        path: "training-plans/:planId/edit",
+        element: <EditPlanForm />,
       },
     ],
   },

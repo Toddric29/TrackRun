@@ -23,15 +23,11 @@ const newPlan = (payload) => ({
     payload
 })
 
-const editPlan = (payload) => ({
-    type: EDIT_PLAN,
-    payload
-})
+// export const removePlan = (payload) => ({
+//     type: DELETE_PLAN,
+//     payload
+// })
 
-const deletePlan = (payload) => ({
-    type: DELETE_PLAN,
-    payload
-})
 
 const follow = (payload) => ({
     type: LOAD_FOLLOW,
@@ -94,11 +90,34 @@ export const createPlan = (payload) => async (dispatch) => {
     return res
 }
 
+
+export const editPlan = (payload, planId) => async (dispatch) => {
+    console.log(payload, '<--- Payload')
+    const res = await fetch(`/api/training-plans/${planId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    if (res.ok) {
+        const edittedPlan = await res.json();
+        dispatch(newPlan(edittedPlan))
+        return edittedPlan;
+    }
+};
+
+export const removePlan = (planId) => async () => {
+    const res = await fetch(`/api/training-plans/${planId}`, {
+        method: 'DELETE'
+    });
+    return res
+}
+
 // Reducer
 const initialState = {
     allPlans: {},
-    planDetails: {},
-    myPlans: {}
+    planDetails: {}
 }
 
 const plansReducer = (state = initialState, action) => {
@@ -133,12 +152,6 @@ const plansReducer = (state = initialState, action) => {
         }
         return {...state}
     }
-    //   case MY_SPOTS: {
-    //       const mySpots = {...state.mySpots}
-    //       console.log(action)
-    //       mySpots[action.payload.id] = {...action.payload}
-    //       return {...state, mySpots: action.payload.Spots}
-    //   }
     //   case REMOVE_SPOT: {
     //       let newAllSpots;
     //       let newMySpots;
