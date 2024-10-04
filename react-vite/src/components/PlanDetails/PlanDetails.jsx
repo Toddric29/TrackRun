@@ -11,6 +11,7 @@ import { fetchFollowings } from '../../redux/users';
 import { AiFillPlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import CreateActivityModal from '../NewActivityModal/NewActivityModal';
 import DeleteActivityModal from '../DeleteActivityModal/DeleteActivityModal';
+import EditActivityModal from '../UpdateActivityModal/UpdateActivityModal';
 
 const PlanDetails = () => {
     const [isLoaded, setIsLoaded] = useState(false)
@@ -88,6 +89,12 @@ const PlanDetails = () => {
                         buttonText="Delete Activity"
                         onItemClick={closeMenu}
                         modalComponent={<DeleteActivityModal activityId={activity.id}/>}
+                        />
+                        <OpenModalButton
+                        className='manage-buttons'
+                        buttonText="Edit Activity"
+                        onItemClick={closeMenu}
+                        modalComponent={<EditActivityModal activityId={activity.id}/>}
                         />
                     </div>
                 )

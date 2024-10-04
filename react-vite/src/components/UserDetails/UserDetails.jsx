@@ -60,8 +60,8 @@ const UserDetails = () => {
                 console.log(plan, '<-----plan')
                 return (
                     <div style={{width: 260}}key={plan.title}>
-                    <NavLink key={plan.body} to={`/training-plans/${plan.id}`}>
-                    </NavLink>
+                        {plan.title}
+                        {plan.body}
                     <div key={plan.id}>
                     <button className='manage-buttons'onClick={() => editPlan(plan.id)}>Update</button>
                     <OpenModalButton

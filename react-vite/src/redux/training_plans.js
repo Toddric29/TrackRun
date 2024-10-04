@@ -154,6 +154,7 @@ const plansReducer = (state = initialState, action) => {
                 ...state,
                 [action.id]: action
             }
+            console.log(newState)
             return newState
         }
         return {...state}
