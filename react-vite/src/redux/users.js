@@ -1,5 +1,8 @@
 const LOAD_USERS = 'users/loadUsers'
 const MY_PLANS = 'users/myPlan'
+const LOAD_FOLLOWERS = 'users/loadFollowers'
+const LOAD_FOLLOW = 'plans/loadFollow'
+const LOAD_UNFOLLOW = 'plans/loadUnfollow'
 
 const getAllUsers = (payload) => ({
     type: LOAD_USERS,
@@ -13,6 +16,21 @@ const getUser = (payload) => ({
 
 const myPlan = (payload) => ({
     type: MY_PLANS,
+    payload
+})
+
+const getFollowers = (payload) => ({
+    type: LOAD_FOLLOWERS,
+    payload
+})
+
+const follow = (payload) => ({
+    type: LOAD_FOLLOW,
+    payload
+})
+
+const unfollow = (payload) => ({
+    type: LOAD_UNFOLLOW,
     payload
 })
 
@@ -42,28 +60,47 @@ export const fetchMyPlans = () => async (dispatch) => {
     throw res;
 }
 
+export const fetchFollowings = () => async (dispatch) => {
+    const res = await fetch(`/api/users/training-plans/following`)
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(getFollowers(data))
+        return data;
+    }
+
+    throw res;
+};
+
 const initialState = {
     allUsers: {},
-    myPlans: {}
+    myPlans: {},
+    plansFollowed: {}
 };
 
 const usersReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case LOAD_USERS: {
-            console.log(action, '<-----action')
+            // console.log(action, '<-----action')
             newState = {...state};
             newState.allUsers = action.payload.users
             return newState
         }
         case MY_PLANS: {
             const newState = {...state}
-            console.log(action.payload, '<-----action')
+            // console.log(action.payload, '<-----action')
             newState.myPlans = action.payload.reduce((acc, plan) => {
                 acc[plan.id] = plan;
 
                 return acc
             }, {})
+            return newState
+        }
+        case LOAD_FOLLOWERS: {
+            console.log(action.payload, '<------')
+            newState = {...state};
+            newState.plansFollowed = action.payload
             return newState
         }
         default:

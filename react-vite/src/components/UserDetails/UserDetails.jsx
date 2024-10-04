@@ -1,5 +1,5 @@
 import './UserDetails.css';
-import { fetchMyPlans } from '../../redux/users';
+import { fetchFollowings, fetchMyPlans } from '../../redux/users';
 import { useEffect, useState, useRef} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { NavLink, useNavigate} from 'react-router-dom';
@@ -13,7 +13,8 @@ const UserDetails = () => {
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
     const plans = useSelector((state) => state.userState.myPlans);
-    console.log(plans)
+    const followedPlans = useSelector((state) => state.userState.plansFollowed)
+    console.log(followedPlans, '<---- FollowedPlans')
 
     useEffect(() => {
         if (!showMenu) return;
@@ -33,6 +34,7 @@ const UserDetails = () => {
 
     useEffect(() => {
         dispatch(fetchMyPlans())
+        dispatch(fetchFollowings())
     }, [dispatch])
 
     const editPlan = (planId) => {
@@ -55,7 +57,7 @@ const UserDetails = () => {
             {Object.values(plans).length === 0 &&
             <NavLink to="/training-plans/new">Create a Plan</NavLink>}
             {Object.values(plans).map(plan => {
-                // console.log(plan, '<----')
+                console.log(plan, '<-----plan')
                 return (
                     <div style={{width: 260}}key={plan.title}>
                     <NavLink key={plan.body} to={`/training-plans/${plan.id}`}>
@@ -72,6 +74,14 @@ const UserDetails = () => {
                     </ div>
                 )
                 })}
+                <div>
+                    <h1>Followed Plans</h1>
+                    {Object.values(followedPlans).map(followedPlan => {
+                        return (
+                        <div key={followedPlan.id}>{followedPlan.title}</div>
+                    )
+                    })}
+                    </div>
             </nav>
         </main>
     )

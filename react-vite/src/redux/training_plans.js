@@ -1,11 +1,9 @@
+import { fetchFollowings } from "./users"
+
 // Action Types
 const LOAD_PLANS = 'plans/loadPlans'
 const LOAD_PLAN  = 'plans/loadPlan'
 const NEW_PLAN = 'plans/newPlan'
-const EDIT_PLAN = 'plans/editPlan'
-const DELETE_PLAN = 'plans/deletePlan'
-const LOAD_FOLLOW = 'plans/loadFollow'
-const LOAD_UNFOLLOW = 'plans/loadUnfollow'
 
 // Action Creators
 const loadPlans = (payload) => ({
@@ -20,22 +18,6 @@ const loadPlan = (payload) => ({
 
 const newPlan = (payload) => ({
     type: NEW_PLAN,
-    payload
-})
-
-// export const removePlan = (payload) => ({
-//     type: DELETE_PLAN,
-//     payload
-// })
-
-
-const follow = (payload) => ({
-    type: LOAD_FOLLOW,
-    payload
-})
-
-const unfollow = (payload) => ({
-    type: LOAD_UNFOLLOW,
     payload
 })
 
@@ -114,6 +96,30 @@ export const removePlan = (planId) => async () => {
     return res
 }
 
+export const fetchFollow = (planId, payload) => async (dispatch) => {
+    const res = await fetch(`/api/training-plans/${planId}/follow`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(fetchFollowings());
+    } else {
+        console.error('Fetch error:', res.statusText);
+    }
+    return res;
+};
+
+export const fetchUnfollow = (planId) => async (dispatch) => {
+    const res = await fetch(`/api/training-plans/${planId}/follow`, {
+        method: 'DELETE'
+    })
+    return res
+}
 // Reducer
 const initialState = {
     allPlans: {},
@@ -152,35 +158,6 @@ const plansReducer = (state = initialState, action) => {
         }
         return {...state}
     }
-    //   case REMOVE_SPOT: {
-    //       let newAllSpots;
-    //       let newMySpots;
-    //       const spotId = action.payload
-
-    //       if (state.allSpots) {
-    //           const data = {...state.allSpots.Spots}
-    //           let Spots = Object.values(data)
-    //           let index;
-    //           for (let i = 0; i < Spots.length; i++) {
-    //               if (Spots[i].id == spotId) index = i
-    //           }
-    //           Spots.splice(index, 1)
-    //           newAllSpots = Object.assign({}, Spots)
-    //       }
-
-    //       if (state.mySpots) {
-    //           const data = {...state.mySpots.Spots}
-    //           let Spots = Object.values(data)
-    //           let index;
-    //           for (let i = 0; i < Spots.length; i++) {
-    //               if (Spots[i].id == spotId) index = i
-    //           }
-    //           Spots.splice(index, 1)
-    //           newMySpots = Object.assign({}, Spots)
-    //       }
-
-    //       return {...state, allSpots: newAllSpots, mySpots: newMySpots}
-    //   }
       default:
         {
           return state;
