@@ -7,11 +7,16 @@ import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import * as planActions from '../../redux/training_plans'
 import * as activitiesActions from '../../redux/activities'
+import * as planCommentsActions from '../../redux/training_plan_comments'
+import * as activityCommentActions from '../../redux/activity_comments'
 import { fetchFollowings } from '../../redux/users';
 import { AiFillPlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import CreateActivityModal from '../NewActivityModal/NewActivityModal';
 import DeleteActivityModal from '../DeleteActivityModal/DeleteActivityModal';
 import EditActivityModal from '../UpdateActivityModal/UpdateActivityModal';
+import CreatePlanCommentModal from '../NewPlanCommentModal/NewPlanCommentModal';
+import DeletePlanCommentModal from '../DeletePlanCommentModal/DeletePlanCommentModal';
+import EditPlanCommentModal from '../UpdatePlanCommentModal/UpdatePlanCommentModal';
 
 const PlanDetails = () => {
     const [isLoaded, setIsLoaded] = useState(false)
@@ -28,6 +33,8 @@ const PlanDetails = () => {
     const alreadyFollowed = Object.values(followedPlans).find(followedPlan => followedPlan.id == planId)
     const id = sessionUser ? sessionUser.id : null
     const activities = useSelector((state) => state.activities.planActivities)
+    const planComments = useSelector((state) => state.planComments.planComments)
+    const activityComments = useSelector((state) => state.activityComments.activityComments)
 
     useEffect(() => {
         if (!showMenu) return;
@@ -49,11 +56,12 @@ const PlanDetails = () => {
         dispatch(fetchPlan(planId))
         dispatch(activitiesActions.fetchPlanActivities(planId))
         dispatch(fetchFollowings())
+        dispatch(planCommentsActions.fetchPlanComments(planId))
           .then(() => setIsLoaded(true))
     }, [planId, dispatch]);
 
     if (isLoaded) {
-      console.log(activities, '<------ACT')
+      console.log(planComments, '<------ACT')
     }
 
     const follow = (e) => {
@@ -78,8 +86,10 @@ const PlanDetails = () => {
     return (
         <div>
             <h1>{plan.title}</h1>
+            <h2>{plan.body}</h2>
+            <h2>Activities start here</h2>
             {Object.values(activities).map(activity => {
-                console.log(activity, '<-------activity', activities, '<----acts')
+                // console.log(activity, '<-------activity', activities, '<----acts')
                 return (
                     <div key={activity.id}>
                         <h2>{activity.title}</h2>
@@ -114,6 +124,32 @@ const PlanDetails = () => {
                     <AiOutlineMinusCircle /> : <AiFillPlusCircle />}
                     </button>}
                     </div>
+                    <h2>Plan Comments start here</h2>
+                    {Object.values(planComments).map(planComment => {
+                return (
+                    <div key={planComment.id}>{planComment.comment}
+                    <OpenModalButton
+                        className='manage-buttons'
+                        buttonText="Delete Comment"
+                        onItemClick={closeMenu}
+                        modalComponent={<DeletePlanCommentModal commentId={planComment.id}/>}
+                        />
+                    <OpenModalButton
+                        className='manage-buttons'
+                        buttonText="Edit Comment"
+                        onItemClick={closeMenu}
+                        modalComponent={<EditPlanCommentModal commentId={planComment.id}/>}
+                        />
+                    </div>
+
+                )
+            })}
+            <OpenModalButton
+            className='manage-buttons'
+            buttonText="Add a Comment"
+            onItemClick={closeMenu}
+            modalComponent={<CreatePlanCommentModal planId={planId}/>}
+            />
         </div>
     )
 }

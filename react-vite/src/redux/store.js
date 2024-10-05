@@ -9,12 +9,16 @@ import sessionReducer from "./session";
 import usersReducer from "./users";
 import plansReducer from "./training_plans";
 import activitiesReducer from "./activities";
+import planCommentsReducer from "./training_plan_comments";
+import activityCommentsReducer from "./activity_comments";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   userState: usersReducer,
   plans: plansReducer,
-  activities: activitiesReducer
+  activities: activitiesReducer,
+  planComments: planCommentsReducer,
+  activityComments: activityCommentsReducer
 });
 
 let enhancer;
