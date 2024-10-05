@@ -11,6 +11,7 @@ import plansReducer from "./training_plans";
 import activitiesReducer from "./activities";
 import planCommentsReducer from "./training_plan_comments";
 import activityCommentsReducer from "./activity_comments";
+import tagsReducer from "./tags";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   plans: plansReducer,
   activities: activitiesReducer,
   planComments: planCommentsReducer,
-  activityComments: activityCommentsReducer
+  activityComments: activityCommentsReducer,
+  tags: tagsReducer
 });
 
 let enhancer;

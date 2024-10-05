@@ -7,7 +7,7 @@ from app.forms import TrainingPlanForm, TrainingPlanCommentForm, TagForm, Activi
 
 tag_routes = Blueprint('tags', __name__)
 
-##Get all training plans
+##Get all tags
 @tag_routes.route('/')
 def tags():
     tags = Tag.query.all()

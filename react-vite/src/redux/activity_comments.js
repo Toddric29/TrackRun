@@ -1,7 +1,7 @@
 const LOAD_ACTIVITY_COMMENTS = 'activityComments/loadActivityComments'
 const NEW_ACTIVITY_COMMENT = 'activityComments/newActivityComment'
 
-const loadComments = (payload) => ({
+const loadActivityComments = (payload) => ({
     type: LOAD_ACTIVITY_COMMENTS,
     payload
 })
@@ -17,13 +17,13 @@ export const fetchActivityComments = (activityId) => async(dispatch) => {
 
   if (res.ok) {
     const data = await res.json()
-    dispatch(loadComments(data));
+    dispatch(loadActivityComments(data));
     return res
   }
 }
 
-export const createPlanComment = (planId, payload) => async (dispatch) => {
-    const res = await fetch(`/api/training-plans/${planId}/comments`, {
+export const createActivityComment = (activityId, payload) => async (dispatch) => {
+    const res = await fetch(`/api/activity/${activityId}/comments`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -33,22 +33,22 @@ export const createPlanComment = (planId, payload) => async (dispatch) => {
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(loadComments(data));
+        dispatch(loadActivityComments(data));
     } else {
         console.error('Fetch error:', res.statusText);
     }
     return res;
 };
 
-export const removePlanComment = (commentId) => async () => {
-    const res = await fetch(`/api/training-plans/comments/${commentId}`, {
+export const removeActivityComment = (commentId) => async () => {
+    const res = await fetch(`/api/activity/comments/${commentId}`, {
         method: 'DELETE'
     });
     return res
 }
 
-export const editPlanComment = (payload, commentId) => async (dispatch) => {
-    const res = await fetch(`/api/training-plan-comments/${commentId}`, {
+export const editActivityComment = (payload, commentId) => async (dispatch) => {
+    const res = await fetch(`/api/activity-comments/${commentId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -71,6 +71,7 @@ const activityCommentsReducer = (state = initialState, action) => {
     let newState;
   switch (action.type) {
     case LOAD_ACTIVITY_COMMENTS: {
+        console.log(action, '<----ACTION')
         newState = {...state};
         newState.activityComments = action.payload;
         return newState

@@ -8,6 +8,7 @@ import PlanDetails from '../components/PlanDetails/PlanDetails';
 import CreatePlanForm from '../components/NewPlan/NewPlan';
 import UserDetails from '../components/UserDetails/UserDetails';
 import EditPlanForm from '../components/UpdatePlan/UpdatePlan';
+import LandingPage from '../components/LandingPage/LandingPage';
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <LandingPage />,
       },
       {
         path: "login",

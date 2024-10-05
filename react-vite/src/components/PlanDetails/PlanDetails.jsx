@@ -9,14 +9,16 @@ import * as planActions from '../../redux/training_plans'
 import * as activitiesActions from '../../redux/activities'
 import * as planCommentsActions from '../../redux/training_plan_comments'
 import * as activityCommentActions from '../../redux/activity_comments'
+import * as tagActions from '../../redux/tags'
 import { fetchFollowings } from '../../redux/users';
 import { AiFillPlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import CreateActivityModal from '../NewActivityModal/NewActivityModal';
-import DeleteActivityModal from '../DeleteActivityModal/DeleteActivityModal';
-import EditActivityModal from '../UpdateActivityModal/UpdateActivityModal';
+import Activity from '../Activity/Activity';
 import CreatePlanCommentModal from '../NewPlanCommentModal/NewPlanCommentModal';
 import DeletePlanCommentModal from '../DeletePlanCommentModal/DeletePlanCommentModal';
 import EditPlanCommentModal from '../UpdatePlanCommentModal/UpdatePlanCommentModal';
+import CreateTagModal from '../NewTagModal/NewTagModal';
+import DeleteTagModal from '../DeleteTagModal/DeleteTagModal';
 
 const PlanDetails = () => {
     const [isLoaded, setIsLoaded] = useState(false)
@@ -35,6 +37,7 @@ const PlanDetails = () => {
     const activities = useSelector((state) => state.activities.planActivities)
     const planComments = useSelector((state) => state.planComments.planComments)
     const activityComments = useSelector((state) => state.activityComments.activityComments)
+    const tags = useSelector((state) => state.tags.tags)
 
     useEffect(() => {
         if (!showMenu) return;
@@ -57,11 +60,12 @@ const PlanDetails = () => {
         dispatch(activitiesActions.fetchPlanActivities(planId))
         dispatch(fetchFollowings())
         dispatch(planCommentsActions.fetchPlanComments(planId))
+        dispatch(tagActions.fetchPlanTags(planId))
           .then(() => setIsLoaded(true))
     }, [planId, dispatch]);
 
     if (isLoaded) {
-      console.log(planComments, '<------ACT')
+      console.log(tags, '<------tags')
     }
 
     const follow = (e) => {
@@ -86,29 +90,30 @@ const PlanDetails = () => {
     return (
         <div>
             <h1>{plan.title}</h1>
-            <h2>{plan.body}</h2>
-            <h2>Activities start here</h2>
-            {Object.values(activities).map(activity => {
-                // console.log(activity, '<-------activity', activities, '<----acts')
+            {Object.values(tags).map(tag => {
                 return (
-                    <div key={activity.id}>
-                        <h2>{activity.title}</h2>
-                        <h3>{activity.body}</h3>
-                        <OpenModalButton
+                    <div>
+                    <h3 key={tag.id}>{tag.name}</h3>
+                    <OpenModalButton
                         className='manage-buttons'
-                        buttonText="Delete Activity"
+                        buttonText="Delete Tag"
                         onItemClick={closeMenu}
-                        modalComponent={<DeleteActivityModal activityId={activity.id}/>}
-                        />
-                        <OpenModalButton
-                        className='manage-buttons'
-                        buttonText="Edit Activity"
-                        onItemClick={closeMenu}
-                        modalComponent={<EditActivityModal activityId={activity.id}/>}
+                        modalComponent={<DeleteTagModal planId={plan.id} tagId={tag.id}/>}
                         />
                     </div>
                 )
             })}
+            <OpenModalButton
+                        className='manage-buttons'
+                        buttonText="Add a Tag"
+                        onItemClick={closeMenu}
+                        modalComponent={<CreateTagModal planId={plan.id}/>}
+                        />
+            <h2>{plan.body}</h2>
+            <h2>Activities start here</h2>
+            {Object.values(activities).map(activity => {
+    return (<Activity activity={activity} />);
+})}
             <OpenModalButton
                         className='manage-buttons'
                         buttonText="Create Activity"
