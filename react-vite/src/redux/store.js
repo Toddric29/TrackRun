@@ -6,9 +6,21 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
+import usersReducer from "./users";
+import plansReducer from "./training_plans";
+import activitiesReducer from "./activities";
+import planCommentsReducer from "./training_plan_comments";
+import activityCommentsReducer from "./activity_comments";
+import tagsReducer from "./tags";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  userState: usersReducer,
+  plans: plansReducer,
+  activities: activitiesReducer,
+  planComments: planCommentsReducer,
+  activityComments: activityCommentsReducer,
+  tags: tagsReducer
 });
 
 let enhancer;

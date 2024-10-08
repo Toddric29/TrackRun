@@ -61,6 +61,7 @@ def create_plan():
         db.session.add(plan)
         db.session.commit()
         res = {
+           "id": plan.id,
             "title": plan.title,
             "body": plan.body,
             "user_id": current_user.id,
@@ -94,7 +95,7 @@ def create_activity(id):
        planactivity = TrainingPlanActivity(
           training_plan_id = id,
           activity_id = activity.id,
-          order = 1
+          activity_order = 1
        )
        db.session.add(planactivity)
        db.session.commit()

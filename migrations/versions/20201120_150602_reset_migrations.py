@@ -147,10 +147,10 @@ def upgrade():
     op.create_table('training_plan_activities',
     sa.Column('training_plan_id', sa.Integer(), nullable=False),
     sa.Column('activity_id', sa.Integer(), nullable=False),
-    sa.Column('order', sa.Integer(), nullable=False),
+    sa.Column('activity_order', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
     sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
-    sa.ForeignKeyConstraint(['activity_id'], ['activity.id'], ),
+    sa.ForeignKeyConstraint(['activity_id'], ['activities.id'], ),
     sa.PrimaryKeyConstraint('training_plan_id', 'activity_id')
     )
 

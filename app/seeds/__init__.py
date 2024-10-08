@@ -40,10 +40,10 @@ def seed():
     seed_activity_comment()
     seed_tag_category()
     seed_tag()
+    seed_training_plan()
     seed_training_plan_comment()
     seed_training_plan_following()
     seed_training_plan_tag()
-    seed_training_plan()
     seed_training_plan_activities()
     # Add other seed functions here
 
