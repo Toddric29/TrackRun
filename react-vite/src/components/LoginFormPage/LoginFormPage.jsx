@@ -31,6 +31,12 @@ function LoginFormPage() {
     }
   };
 
+  const handleDemo = (e) => {
+    e.preventDefault()
+    return dispatch(sessionActions.thunkLogin({ email: 'demo@aa.io', password: 'password' }))
+    .then(closeModal)
+  }
+
   return (
     <>
       <h1>Log In</h1>
@@ -59,6 +65,11 @@ function LoginFormPage() {
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
       </form>
+      <form onSubmit={handleDemo}>
+        <div className='demo-button'>
+          <button className='demo'type="submit">Login as Demo User</button>
+        </div>
+        </form>
     </>
   );
 }

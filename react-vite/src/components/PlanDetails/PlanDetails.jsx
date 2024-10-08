@@ -88,38 +88,25 @@ const PlanDetails = () => {
     }
 
     return (
-        <div>
-            <h1>{plan.title}</h1>
-            {Object.values(tags).map(tag => {
-                return (
-                    <div>
-                    <h3 key={tag.id}>{tag.name}</h3>
-                    <OpenModalButton
-                        className='manage-buttons'
-                        buttonText="Delete Tag"
-                        onItemClick={closeMenu}
-                        modalComponent={<DeleteTagModal planId={plan.id} tagId={tag.id}/>}
-                        />
-                    </div>
-                )
-            })}
-            <OpenModalButton
-                        className='manage-buttons'
-                        buttonText="Add a Tag"
-                        onItemClick={closeMenu}
-                        modalComponent={<CreateTagModal planId={plan.id}/>}
-                        />
-            <h2>{plan.body}</h2>
-            <h2>Activities start here</h2>
+        <div className='training-plan-details'>
+            <div className='training-plan-section'>
+                <h1 className='training-plan-title'>{plan.title}</h1>
+                <h2>{plan.body}</h2>
+            </div>
+            <div className='activities-section'>
+                <div className='title'>
+                    <h2>Activities</h2>
+                </div>
             {Object.values(activities).map(activity => {
-    return (<Activity activity={activity} />);
-})}
-            <OpenModalButton
-                        className='manage-buttons'
-                        buttonText="Create Activity"
-                        onItemClick={closeMenu}
-                        modalComponent={<CreateActivityModal planId={planId}/>}
-                        />
+                return (<Activity activity={activity} />);
+                })}
+                <OpenModalButton
+                className='manage-buttons'
+                buttonText="Create Activity"
+                onItemClick={closeMenu}
+                modalComponent={<CreateActivityModal planId={planId}/>}
+                />
+            </div>
             <div>
                 {user !== null &&<button
                 onClick={follow}
@@ -155,6 +142,25 @@ const PlanDetails = () => {
             onItemClick={closeMenu}
             modalComponent={<CreatePlanCommentModal planId={planId}/>}
             />
+            {Object.values(tags).map(tag => {
+                return (
+                    <div>
+                    <h3 key={tag.id}>{tag.name}</h3>
+                        <OpenModalButton
+                        className='manage-buttons'
+                        buttonText="Add a Tag"
+                        onItemClick={closeMenu}
+                        modalComponent={<CreateTagModal planId={plan.id}/>}
+                        />
+                        <OpenModalButton
+                        className='manage-buttons'
+                        buttonText="Delete Tag"
+                        onItemClick={closeMenu}
+                        modalComponent={<DeleteTagModal planId={plan.id} tagId={tag.id}/>}
+                        />
+                    </div>
+                )
+            })}
         </div>
     )
 }

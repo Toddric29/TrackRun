@@ -20,7 +20,7 @@ const loadPlanByTag = (payload) => ({
 
 export const fetchTags = () => async (dispatch) => {
     try {
-        const res = await fetch('/api/tags/')
+        const res = await fetch('/api/tags')
         if(res.ok) {
             const data = await res.json();
             if (data.errors) {
@@ -114,16 +114,16 @@ const tagsReducer = (state = initialState, action) => {
         newState.tagById = action.payload;
         return newState
     }
-    case NEW_PLAN_TAG: {
-        if (!state[action.id]) {
-            const newState = {
-                ...state,
-                [action.id]: action
-            }
-            return newState
-        }
-        return {...state}
-    }
+    // case NEW_PLAN_TAG: {
+    //     if (!state[action.id]) {
+    //         const newState = {
+    //             ...state,
+    //             [action.id]: action
+    //         }
+    //         return newState
+    //     }
+    //     return {...state}
+    // }
     default:
       return state;
   }
