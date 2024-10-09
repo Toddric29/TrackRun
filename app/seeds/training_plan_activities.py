@@ -3,6 +3,7 @@ from sqlalchemy.sql import text
 
 def seed_training_plan_activities():
     demo = TrainingPlanActivity(
+
         training_plan_id=1, activity_id=1, activity_order=1
     )
     demo2 = TrainingPlanActivity(

@@ -62,6 +62,7 @@ const LandingPage = () => {
                 return (
                     <div key={tag.id}
                     onClick={() => navigate(`/training-plans/tags/${tag.id}`)}>
+
                         <h2>{tag.name}</h2>
                     </div>
                 )
