@@ -14,6 +14,8 @@ const UserDetails = () => {
     const ulRef = useRef();
     const plans = useSelector((state) => state.userState.myPlans);
     const followedPlans = useSelector((state) => state.userState.plansFollowed)
+    const sessionUser = useSelector(state => state.session.user)
+    const user = sessionUser ? sessionUser.id : null
     console.log(followedPlans, '<---- FollowedPlans')
 
     useEffect(() => {
@@ -40,29 +42,23 @@ const UserDetails = () => {
     const editPlan = (planId) => {
         navigate(`/training-plans/${planId}/edit`)
         }
-    // const deletePlan = (planId) => {
-    //     dispatch(removePlan(planId))
-    //     .then(() => {
-    //         return Promise.all([
-    //             dispatch(fetchMyPlans()),
-    //             dispatch(fetchPlans)
-    //         ])
-    //     })
-    //     .then(() => navigate('/'))
-    // }
     return (
-        <main className='allPlans'>
-            <h1>Manage Your Plans</h1>
-            <nav className='plans'>
-            {Object.values(plans).length === 0 &&
-            <NavLink to="/training-plans/new">Create a Plan</NavLink>}
+        <main className='user-details'>
+            <div className='user-details-div'>
+                <div className='your-plans-section'>
+                <h1 className='title'>Manage Your Plans</h1>
             {Object.values(plans).map(plan => {
-                console.log(plan, '<-----plan')
                 return (
-                    <div style={{width: 260}}key={plan.title}>
-                        {plan.title}
-                        {plan.body}
-                    <div key={plan.id}>
+                    <div key={plan.title}>
+                        <div className='your-plans'>
+                            <div className='your-plan-title'>
+                            <NavLink to={`/training-plans/${plan.id}`}>{plan.title}</NavLink>
+                            </div>
+                            <div className='your-plan-body'>
+                            {plan.body}
+                            </div>
+                        </div>
+                    <div key={plan.id} className='your-plan-buttons'>
                     <button className='manage-buttons'onClick={() => editPlan(plan.id)}>Update</button>
                     <OpenModalButton
                         className='manage-buttons'
@@ -74,15 +70,21 @@ const UserDetails = () => {
                     </ div>
                 )
                 })}
-                <div>
-                    <h1>Followed Plans</h1>
+                <div className='your-plan-button'>
+                <NavLink to="/training-plans/new">Create a Plan</NavLink>
+                </div>
+                </div>
+                <div className='followed-plans-section'>
+                    <h1 className='title'>Followed Plans</h1>
+                    <div className='followed-plans'>
                     {Object.values(followedPlans).map(followedPlan => {
                         return (
-                        <div key={followedPlan.id}>{followedPlan.title}</div>
+                        <NavLink key={followedPlan.id} to={`/training-plans/${followedPlan.id}`}>{followedPlan.title}</NavLink>
                     )
                     })}
                     </div>
-            </nav>
+                    </div>
+            </div>
         </main>
     )
 }

@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as tagActions from '../../redux/tags'
 
 const LandingPage = () => {
+    const navigate = useNavigate();
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch()
     const [showMenu, setShowMenu] = useState(false);
@@ -59,7 +60,8 @@ const LandingPage = () => {
             <h1>Welcome</h1>
             {Object.values(tags).map(tag => {
                 return (
-                    <div key={tag.id}>
+                    <div key={tag.id}
+                    onClick={() => navigate(`/training-plans/tags/${tag.id}`)}>
                         <h2>{tag.name}</h2>
                     </div>
                 )

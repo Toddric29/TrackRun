@@ -3,17 +3,17 @@ from sqlalchemy.sql import text
 
 def seed_tag():
     demo = Tag(
-        name='5K', category_id='3'
-    )
-    demo2 = Tag(
         name='10K', category_id='3'
     )
+    demo2 = Tag(
+        name='Marathon', category_id='3'
+    )
     demo3 = Tag(
-        name='6 months', category_id='2'
+        name='Half Marathon', category_id='2'
     )
 
     demo4 = Tag(
-        name='Easy', category_id='1'
+        name='5K', category_id='1'
     )
 
     db.session.add(demo)
