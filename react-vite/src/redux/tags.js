@@ -20,7 +20,7 @@ const loadPlanByTag = (payload) => ({
 
 export const fetchTags = () => async (dispatch) => {
     try {
-        const res = await fetch('/api/tags/')
+        const res = await fetch('/api/tags')
         if(res.ok) {
             const data = await res.json();
             if (data.errors) {
@@ -49,14 +49,25 @@ export const fetchPlanTags = (planId) => async(dispatch) => {
 }
 
 export const fetchPlansByTag = (tagId) => async(dispatch) => {
-    const res = await fetch(`/api/training-plans/tags/${tagId}`);
-
-    if (res.ok) {
-      const data = await res.json()
-      dispatch(loadPlanByTag(data));
-      return res
+    try {
+        const res = await fetch(`/api/training-plans/tags/${tagId}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data.errors) {
+                throw new Error(data.errors);
+            }
+            dispatch(loadPlanByTag(data));
+            return data;
+        } else {
+            throw new Error('Failed to fetch data');
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        // Optionally dispatch an error action here
+        // dispatch(fetchPlansByTagError(error));
+        return error;
     }
-  }
+};
 
 export const createPlanTag = (planId, payload) => async (dispatch) => {
     const res = await fetch(`/api/training-plans/${planId}/tags`, {
@@ -111,19 +122,19 @@ const tagsReducer = (state = initialState, action) => {
     case LOAD_PLAN_BY_TAG: {
         console.log(action, '<----TAGACTION')
         newState = {...state};
-        newState.tagById = action.payload;
+        newState.tags = action.payload;
         return newState
     }
-    case NEW_PLAN_TAG: {
-        if (!state[action.id]) {
-            const newState = {
-                ...state,
-                [action.id]: action
-            }
-            return newState
-        }
-        return {...state}
-    }
+    // case NEW_PLAN_TAG: {
+    //     if (!state[action.id]) {
+    //         const newState = {
+    //             ...state,
+    //             [action.id]: action
+    //         }
+    //         return newState
+    //     }
+    //     return {...state}
+    // }
     default:
       return state;
   }

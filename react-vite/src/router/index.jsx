@@ -9,6 +9,7 @@ import CreatePlanForm from '../components/NewPlan/NewPlan';
 import UserDetails from '../components/UserDetails/UserDetails';
 import EditPlanForm from '../components/UpdatePlan/UpdatePlan';
 import LandingPage from '../components/LandingPage/LandingPage';
+import TagDetailPage from '../components/TagDetailPage/TagDetailPage';
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "training-plans/:planId/edit",
         element: <EditPlanForm />,
+      },
+      {
+        path: "training-plans/tags/:tagId",
+        element: <TagDetailPage />,
       },
     ],
   },

@@ -30,9 +30,6 @@ export const fetchPlans = () => async (dispatch) => {
         const res = await fetch('/api/training-plans/')
         if(res.ok) {
             const data = await res.json();
-            if (data.errors) {
-                throw data;
-            }
 
             dispatch(loadPlans(data));
             return res

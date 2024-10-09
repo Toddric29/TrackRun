@@ -26,6 +26,7 @@ def get_plan(id):
         'title': plan.title,
         'body': plan.body,
         'username': plan.user.username,
+        'user_id': plan.user.id,
         'created_at': plan.created_at,
         'updated_at': plan.updated_at
     })
@@ -166,7 +167,7 @@ def plan_comments(training_plan_id):
     comments_res = [
         {
             'id': comment.id,
-            'userId': comment.user_id,
+            'user_id': comment.user_id,
             'training_plan_id': comment.training_plan_id,
             'comment': comment.comment,
             'User': {
@@ -242,7 +243,7 @@ def add_tags(training_plan_id):
   form = TagForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
-    name = form.data['name'].lower()
+    name = form.data['name']
     tag = Tag.query.filter_by(name=name).first()
     if not tag:
       newTag = Tag(

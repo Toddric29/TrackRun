@@ -86,53 +86,50 @@ const PlanDetails = () => {
             <h1>Loading...</h1>
         )
     }
+    const hasTags = Object.values(tags).length > 0;
 
     return (
-        <div>
-            <h1>{plan.title}</h1>
-            {Object.values(tags).map(tag => {
-                return (
-                    <div>
-                    <h3 key={tag.id}>{tag.name}</h3>
-                    <OpenModalButton
-                        className='manage-buttons'
-                        buttonText="Delete Tag"
-                        onItemClick={closeMenu}
-                        modalComponent={<DeleteTagModal planId={plan.id} tagId={tag.id}/>}
-                        />
-                    </div>
-                )
-            })}
-            <OpenModalButton
-                        className='manage-buttons'
-                        buttonText="Add a Tag"
-                        onItemClick={closeMenu}
-                        modalComponent={<CreateTagModal planId={plan.id}/>}
-                        />
-            <h2>{plan.body}</h2>
-            <h2>Activities start here</h2>
+        <div className='training-plan-details'>
+            <div className='training-plan-section'>
+                <h1 className='training-plan-title'>{plan.title}</h1>
+                <h2>{plan.body}</h2>
+            </div>
+            <div className='activities-section'>
+                <div className='title'>
+                    <h2 className='activities-title'>Activities</h2>
+                </div>
             {Object.values(activities).map(activity => {
-    return (<Activity activity={activity} />);
-})}
-            <OpenModalButton
-                        className='manage-buttons'
-                        buttonText="Create Activity"
-                        onItemClick={closeMenu}
-                        modalComponent={<CreateActivityModal planId={planId}/>}
-                        />
+                return (<Activity activity={activity} />);
+                })}
+                <div className='activity-button'>
+                <OpenModalButton
+                className='manage-buttons'
+                buttonText="Create Activity"
+                onItemClick={closeMenu}
+                modalComponent={<CreateActivityModal planId={planId}/>}
+                />
+                </div>
+            </div>
             <div>
+                <div className='follow-section'>
                 {user !== null &&<button
                 onClick={follow}
                 className="follow-button"
-                title={alreadyFollowed ? "Unsave this question" : "Save this question"}>
+                title={alreadyFollowed ? "Follow this plan" : "Unfollow this plan"}>
                     {alreadyFollowed ?
                     <AiOutlineMinusCircle /> : <AiFillPlusCircle />}
                     </button>}
+                </div>
                     </div>
-                    <h2>Plan Comments start here</h2>
+                    <div className='plan-comments-section'>
+                    <h2 className='plan-comments-title'>Plan Comments</h2>
                     {Object.values(planComments).map(planComment => {
                 return (
-                    <div key={planComment.id}>{planComment.comment}
+                    <div key={planComment.id}>
+                        <div className='plan-comment'>
+                        {planComment.comment}
+                        </div>
+                    {user == planComment.user_id && <div className='plan-comment-buttons'>
                     <OpenModalButton
                         className='manage-buttons'
                         buttonText="Delete Comment"
@@ -145,16 +142,47 @@ const PlanDetails = () => {
                         onItemClick={closeMenu}
                         modalComponent={<EditPlanCommentModal commentId={planComment.id}/>}
                         />
+                        </div>}
                     </div>
 
                 )
             })}
+                    </div>
             <OpenModalButton
             className='manage-buttons'
             buttonText="Add a Comment"
             onItemClick={closeMenu}
             modalComponent={<CreatePlanCommentModal planId={planId}/>}
             />
+            <div>
+            {hasTags && Object.values(tags).map(tag => (
+      <div key={tag.id}>
+        <div className='tag'>
+          <h3>{tag.name}</h3>
+        </div>
+        {user == plan.user_id && (
+          <div className='tag-buttons'>
+            <OpenModalButton
+              className='manage-buttons'
+              buttonText="Delete Tag"
+              onItemClick={closeMenu}
+              modalComponent={<DeleteTagModal planId={plan.id} tagId={tag.id}/>} />
+          </div>
+        )}
+      </div>
+    ))}
+
+    {/* Render Add Tag button regardless of tags presence */}
+    {user == plan.user_id && (
+      <div className='tag-buttons'>
+        <OpenModalButton
+          className='manage-buttons'
+          buttonText="Add a Tag"
+          onItemClick={closeMenu}
+          modalComponent={<CreateTagModal planId={plan.id}/>} />
+      </div>
+    )}
+            </div>
         </div>
     )
 }
