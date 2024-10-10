@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { FaUserCircle } from 'react-icons/fa';
+import { BiRun } from 'react-icons/bi';
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -45,9 +45,9 @@ function ProfileButton() {
   };
 
   return (
-    <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+    <div className="container">
+      <button className='button' onClick={toggleMenu}>
+        <BiRun />
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
@@ -56,10 +56,10 @@ function ProfileButton() {
               <li>{user.username}</li>
               <li>{user.email}</li>
               <li>
-      <NavLink to='/users/training-plans'>Profile</NavLink>
+      <NavLink className='nav-link' to='/users/training-plans'>Profile</NavLink>
       </li>
               <li>
-                <button onClick={logout}>Log Out</button>
+                <button className='button' onClick={logout}>Log Out</button>
               </li>
             </>
           ) : (
@@ -78,7 +78,7 @@ function ProfileButton() {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
