@@ -1,20 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchPlansByTag } from "../../redux/tags";
+import { fetchPlans } from "../../redux/training_plans";
 
 function TagDetailPage() {
+    const [isLoaded, setIsLoaded] = useState(false)
   const {tagId} = useParams();
   const plans = useSelector((state) => state.tags.tags)
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchPlansByTag(tagId))
+    .then(() => setIsLoaded(true))
   }, [dispatch]);
 
-
-
+  if (!isLoaded) {
+    return (
+        <h1>Loading...</h1>
+    )
+}
 
   return (
     <div className="tag-details">

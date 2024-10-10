@@ -53,7 +53,7 @@ const Activity = ({activity}) => {
                 <div className="activity-body">
                     <h3>{activity.body}</h3>
                 </div>
-                {sessionUser.username == plan.username &&
+                {user && sessionUser.username == plan.username &&
                 <div className="activity-buttons">
                     <OpenModalButton
                     className='manage-buttons'

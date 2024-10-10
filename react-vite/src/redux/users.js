@@ -61,15 +61,21 @@ export const fetchMyPlans = () => async (dispatch) => {
 }
 
 export const fetchFollowings = () => async (dispatch) => {
-    const res = await fetch(`/api/users/training-plans/following`)
+    try{
+        const res = await fetch(`/api/users/training-plans/following`)
 
-    if (res.ok) {
-        const data = await res.json()
-        dispatch(getFollowers(data))
-        return data;
+        if (res.ok) {
+            const data = await res.json()
+            dispatch(getFollowers(data))
+            return data;
+        }
+        else {
+            throw res;
+        }
+    } catch (error) {
+        const err = await error
+        return err
     }
-
-    throw res;
 };
 
 const initialState = {

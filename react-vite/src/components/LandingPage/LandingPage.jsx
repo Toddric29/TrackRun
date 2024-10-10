@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as tagActions from '../../redux/tags'
+import './LandingPage.css'
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -56,14 +57,13 @@ const LandingPage = () => {
     }
 
     return (
-        <div>
-            <h1>Welcome</h1>
+        <div className='landing-page'>
+            <h1 className='title'>Find Training Plans By Clicking on the Tags Below!</h1>
             {Object.values(tags).map(tag => {
                 return (
-                    <div key={tag.id}
+                    <div className='tags'key={tag.id}
                     onClick={() => navigate(`/training-plans/tags/${tag.id}`)}>
-
-                        <h2>{tag.name}</h2>
+                        <h2 className='tag'>{tag.name}</h2>
                     </div>
                 )
             })}

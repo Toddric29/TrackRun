@@ -1,3 +1,76 @@
+.navbar {
+  position: relative;
+  overflow: hidden;
+}
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 .profile-dropdown {
   position: absolute;
+  right: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-right: 10px;
+  color: lightslategray;
+  text-decoration: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+.profile-dropdown li {
+  display: block;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #333; */
+  color: #fff;
+  padding: 1rem;
+  border-bottom: 2px solid lightslategray;
+}
+
+.navbar-middle .nav-link{
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: lightslategray;
+  text-decoration: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-link:hover {
+  color: blue;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  display: block;
+  border-radius: 2px;
+  box-shadow: 0 4px 6px rgba(7, 71, 96, 0.1);
+  color: lightslategray;
+  transition: transform 0.2s;
+  text-decoration: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0px 8px 0px 8px;
+}
+
+.button:hover {
+  transform: scale(1.05);
 }

@@ -2,7 +2,7 @@ import './PlanDetails.css';
 import { fetchPlan } from '../../redux/training_plans';
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import * as planActions from '../../redux/training_plans'
@@ -21,6 +21,7 @@ import CreateTagModal from '../NewTagModal/NewTagModal';
 import DeleteTagModal from '../DeleteTagModal/DeleteTagModal';
 
 const PlanDetails = () => {
+    const navigate = useNavigate();
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch()
     const [showMenu, setShowMenu] = useState(false);
@@ -55,18 +56,21 @@ const PlanDetails = () => {
 
       const closeMenu = () => setShowMenu(false);
 
+      if (user) {
+        useEffect(() => {
+            dispatch(fetchFollowings())
+        }, [dispatch])
+      }
+
       useEffect(() => {
         dispatch(fetchPlan(planId))
         dispatch(activitiesActions.fetchPlanActivities(planId))
-        dispatch(fetchFollowings())
         dispatch(planCommentsActions.fetchPlanComments(planId))
         dispatch(tagActions.fetchPlanTags(planId))
           .then(() => setIsLoaded(true))
     }, [planId, dispatch]);
 
-    if (isLoaded) {
-      console.log(tags, '<------tags')
-    }
+
 
     const follow = (e) => {
         const payload = {id: planId}
@@ -156,7 +160,8 @@ const PlanDetails = () => {
             />
             <div>
             {hasTags && Object.values(tags).map(tag => (
-      <div key={tag.id}>
+      <div key={tag.id}
+      onClick={() => navigate(`/training-plans/tags/${tag.id}`)}>
         <div className='tag'>
           <h3>{tag.name}</h3>
         </div>
