@@ -56,8 +56,11 @@ function ProfileButton() {
               <li>{user.username}</li>
               <li>{user.email}</li>
               <li>
-      <NavLink className='nav-link' to='/users/training-plans'>Profile</NavLink>
-      </li>
+                <NavLink className='nav-link' to='/users/training-plans'>Profile</NavLink>
+                </li>
+                <li>
+                <NavLink className='nav-link' to="/training-plans/new">Create a Plan</NavLink>
+                </li>
               <li>
                 <button className='button' onClick={logout}>Log Out</button>
               </li>

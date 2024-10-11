@@ -52,10 +52,14 @@ const UserDetails = () => {
                     <div key={plan.title}>
                         <div className='your-plans'>
                             <div className='your-plan-title'>
-                            <NavLink to={`/training-plans/${plan.id}`}>{plan.title}</NavLink>
+                                <h2 className='plan-title'>
+                                <NavLink className='nav-link' to={`/training-plans/${plan.id}`}>{plan.title}</NavLink>
+                                </h2>
                             </div>
                             <div className='your-plan-body'>
-                            {plan.body}
+                                <p className='body'>
+                                {plan.body}
+                                </p>
                             </div>
                         </div>
                     <div key={plan.id} className='your-plan-buttons'>
@@ -70,16 +74,15 @@ const UserDetails = () => {
                     </ div>
                 )
                 })}
-                <div className='your-plan-button'>
-                <NavLink to="/training-plans/new">Create a Plan</NavLink>
-                </div>
                 </div>
                 <div className='followed-plans-section'>
                     <h1 className='title'>Followed Plans</h1>
                     <div className='followed-plans'>
                     {Object.values(followedPlans).map(followedPlan => {
                         return (
-                        <NavLink key={followedPlan.id} to={`/training-plans/${followedPlan.id}`}>{followedPlan.title}</NavLink>
+                            <h3 className='followed-plan-title'>
+                                <NavLink className='nav-link' key={followedPlan.id} to={`/training-plans/${followedPlan.id}`}>• {followedPlan.title}</NavLink>
+                            </h3>
                     )
                     })}
                     </div>
