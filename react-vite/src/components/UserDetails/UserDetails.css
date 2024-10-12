@@ -19,11 +19,15 @@
 }
 
 .followed-plan-title {
+    display: grid;
+  grid-template-rows: 1fr auto;
+    position: relative;
     margin: 0;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px;
-    display: inline-block;
+    flex-direction: column;
+    justify-content: space-between;
     margin-top: 0;
     background: linear-gradient(45deg, #d1e0e0, #f0f8ff);
 }
@@ -58,4 +62,14 @@
 
 .body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.plan-body {
+    font-size: small;
+    font-style: italic;
+    margin-top: auto;
+}
+
+.f-plan-title {
+    margin-top: 0;
 }

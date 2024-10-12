@@ -26,8 +26,6 @@ function CreatePlanCommentModal({planId}) {
         .then(() => {
             dispatch(planCommentsActions.fetchPlanComments(planId))
         })
-        // console.log(payload, '<----PAYLOAd')
-        // setErrors({})
         .then(() => {
             closeModal()
         })
@@ -37,21 +35,22 @@ function CreatePlanCommentModal({planId}) {
     };
 
     return (
-        <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <input
-            type="text"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            required
-          />
-        </label>
-        {errors.comment && <p>{errors.comment}</p>}
-        <button type="submit">Add a Comment</button>
-      </form>
-        </>
-    )
+      <div className="modal-comment">
+        <form onSubmit={handleSubmit} className="modal-form">
+          <label>
+            <input
+              type="text"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              required
+              className="modal-input"
+            />
+          </label>
+          {errors.comment && <p className="modal-error">{errors.comment}</p>}
+          <button className='button-comment'type="submit">Add a Comment</button>
+        </form>
+      </div>
+    );
 }
 
 export default CreatePlanCommentModal;

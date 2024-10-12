@@ -46,14 +46,12 @@ const Activity = ({activity}) => {
 
     return (
         <div className='activity' key={activity.id}>
-            <div className="activity-info">
-                <div className="activity-title">
-                    <h2>{activity.title}</h2>
-                </div>
-                <div className="activity-body">
-                    <h3>{activity.body}</h3>
-                </div>
-                {user && sessionUser.username == plan.username &&
+                <div className='f-plan-title'>
+                    <h2 className="nav-link">{activity.title}</h2>
+                    <h3 className="plan-body">{activity.body}</h3>
+            </div>
+            <div className="activity-comment-section">
+            {user && sessionUser.username == plan.username &&
                 <div className="activity-buttons">
                     <OpenModalButton
                     className='manage-buttons'
@@ -68,9 +66,7 @@ const Activity = ({activity}) => {
                     modalComponent={<EditActivityModal activityId={activity.id}/>}
                     />
                 </div>}
-            </div>
-            <div className="activity-comment-section">
-                { comments.length == 0 ? <button onClick={loadComments}>Load Comments</button>: comments.map(comment => {
+                { comments.length == 0 ? <button className='manage-buttons' onClick={loadComments}>Load Comments</button>: comments.map(comment => {
                     return (
                     <div className='comment-buttons'key={comment.id}>
                         <h3>{comment.comment}</h3>
@@ -92,14 +88,14 @@ const Activity = ({activity}) => {
                     </div>
                     )
                     })}
-                    <div className="add-comment-button">
+                    {user !== null && <span className="add-comment-button">
                         <OpenModalButton
                         className='manage-buttons'
                         buttonText="Add Comment"
                         onItemClick={closeMenu}
                         modalComponent={<CreateActivityCommentModal activityId={activity.id}/>}
                         />
-                    </div>
+                    </span>}
             </div>
         </div>
     )

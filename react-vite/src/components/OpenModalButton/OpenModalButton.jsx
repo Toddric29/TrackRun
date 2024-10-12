@@ -1,15 +1,16 @@
 import { useModal } from '../../context/Modal';
 
 function OpenModalButton({
-  modalComponent, // component to render inside the modal
-  buttonText, // text of the button that opens the modal
-  onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
-  onModalClose, // optional: callback function that will be called once the modal is closed
+  modalComponent,
+  buttonText,
+  onButtonClick,
+  onModalClose,
   className
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
-  const onClick = () => {
+  const onClick = (event) => {
+    event.stopPropagation(); // Prevent the event from bubbling up
     if (onModalClose) setOnModalClose(onModalClose);
     setModalContent(modalComponent);
     if (typeof onButtonClick === "function") onButtonClick();

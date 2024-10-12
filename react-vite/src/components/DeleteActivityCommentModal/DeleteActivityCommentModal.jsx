@@ -12,7 +12,6 @@ function DeleteActivityCommentModal({commentId, activityId}) {
     const dispatch = useDispatch();
     const { planId } = useParams();
     const { closeModal } = useModal()
-    console.log(planId, '<-------PLANID')
 
     const handleSubmit = (e) => {
         e.preventDefault(e);
@@ -29,22 +28,24 @@ function DeleteActivityCommentModal({commentId, activityId}) {
     };
 
     return (
-        <>
-        <h1>Confirm Delete</h1>
-        <h2>Are you sure you want to remove comment?</h2>
+        <div className='pop-modal'>
+            <div className='modal-content'>
+            <h1 className='modal-h1'>Confirm Delete</h1>
+        <h2 className='modal-h2'>Are you sure you want to remove this comment?</h2>
         <form>
-        <div style={{textAlign:'center'}}>
         <div>
-        <button style={{backgroundColor:'red', color:'#fff',border:'none', width:150}}
+        <div>
+        <button className='button-modal'
         type="button" onClick={handleSubmit}>Yes (Delete Comment)</button>
         </div>
         <div>
-        <button style={{backgroundColor:'grey', color:'#fff',border:'none', width:150}}
+        <button className='button-modal2'
         type="button" onClick={handleCancel}>No (Keep Comment)</button>
         </div>
         </div>
         </form>
-        </>
+            </div>
+        </div>
     )
 }
 

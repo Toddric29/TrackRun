@@ -42,7 +42,7 @@ const EditPlanCommentModal = ({commentId}) => {
     .then(closeModal)
   };
   return (
-    <div className='modal'>
+    <div className='modal-comment'>
       <form onSubmit={handleSubmit}>
       <label>
           <input
@@ -50,10 +50,11 @@ const EditPlanCommentModal = ({commentId}) => {
             defaultValue={comment}
             onChange={updateComment}
             required
+            className="modal-input"
           />
         </label>
-        {errors.comment && <p>{errors.comment}</p>}
-        <button type="submit">Update Comment</button>
+        {errors.comment && <p className="modal-error">{errors.comment}</p>}
+        <button className='button-comment' type="submit">Update Comment</button>
       </form>
     </div>
   );

@@ -36,20 +36,21 @@ function CreateTagModal({planId}) {
     };
 
     return (
-        <>
-      <form onSubmit={handleSubmit}>
+        <div className='modal-comment'>
+      <form className="modal-form" onSubmit={handleSubmit}>
         <label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            className="modal-input"
           />
         </label>
-        {errors.name && <p>{errors.name}</p>}
-        <button type="submit">Add a Tag</button>
+        {errors.name && <p className="modal-error">{errors.name}</p>}
+        <button className='button-comment' type="submit">Add a Tag</button>
       </form>
-        </>
+        </div>
     )
 }
 

@@ -27,8 +27,6 @@ function CreateActivityModal({planId}) {
         .then(() => {
             dispatch(activityActions.fetchPlanActivities(planId))
         })
-        // console.log(payload, '<----PAYLOAd')
-        // setErrors({})
         .then(() => {
             closeModal()
         })
@@ -38,31 +36,33 @@ function CreateActivityModal({planId}) {
     };
 
     return (
-        <>
-        <h1>New Activity</h1>
+        <div className='modal-comment'>
+        <h1 className='title'>New Activity</h1>
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className='comment-title'>
           Title
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            className="modal-input"
           />
         </label>
-        {errors.title && <p>{errors.title}</p>}
-        <label>
+        {errors.title && <p className="modal-error">{errors.title}</p>}
+        <label className='comment-title'>
           Body
           <input
             type="text"
             value={body}
             onChange={(e) => setBody(e.target.value)}
             required
+            className="modal-input"
           />
         </label>
-        <button type="submit">Create Activity</button>
+        <button className='button-comment' type="submit">Create Activity</button>
       </form>
-        </>
+        </div>
     )
 }
 

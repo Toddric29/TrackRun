@@ -29,22 +29,24 @@ function DeleteTagModal({tagId}) {
     };
 
     return (
-        <>
-        <h1>Confirm Delete</h1>
-        <h2>Are you sure you want to remove tag?</h2>
-        <form>
-        <div style={{textAlign:'center'}}>
-        <div>
-        <button style={{backgroundColor:'red', color:'#fff',border:'none', width:150}}
-        type="button" onClick={handleSubmit}>Yes (Delete Tag)</button>
+        <div className='pop-modal'>
+        <div className='modal-content'>
+        <h1 className='modal-h1'>Confirm Delete</h1>
+    <h2 className='modal-h2'>Are you sure you want to remove this tag?</h2>
+    <form>
+    <div>
+    <div>
+    <button className='button-modal'
+    type="button" onClick={handleSubmit}>Yes (Delete Tag)</button>
+    </div>
+    <div>
+    <button className='button-modal2'
+    type="button" onClick={handleCancel}>No (Keep Tag)</button>
+    </div>
+    </div>
+    </form>
         </div>
-        <div>
-        <button style={{backgroundColor:'grey', color:'#fff',border:'none', width:150}}
-        type="button" onClick={handleCancel}>No (Keep Tag)</button>
-        </div>
-        </div>
-        </form>
-        </>
+    </div>
     )
 }
 

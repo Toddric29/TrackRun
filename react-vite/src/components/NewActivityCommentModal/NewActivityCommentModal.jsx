@@ -27,8 +27,6 @@ function CreateActivityCommentModal({activityId}) {
         .then(() => {
             dispatch(activityCommentActions.fetchActivityComments(activityId))
         })
-        // console.log(payload, '<----PAYLOAd')
-        // setErrors({})
         .then(() => {
             closeModal()
         })
@@ -38,20 +36,21 @@ function CreateActivityCommentModal({activityId}) {
     };
 
     return (
-        <>
-      <form onSubmit={handleSubmit}>
+        <div className="modal-comment">
+      <form className="modal-form" onSubmit={handleSubmit}>
         <label>
           <input
             type="text"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             required
+            className="modal-input"
           />
         </label>
-        {errors.comment && <p>{errors.comment}</p>}
-        <button type="submit">Add a Comment</button>
+        {errors.comment && <p className="modal-error">{errors.comment}</p>}
+        <button className='button-comment' type="submit">Add a Comment</button>
       </form>
-        </>
+        </div>
     )
 }
 
