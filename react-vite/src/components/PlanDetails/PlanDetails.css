@@ -1,0 +1,80 @@
+.t-plan-body {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 208, 0, 0.812);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 0;
+    background-color: #f5f5f5;
+}
+
+.activity {
+    display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.manage-button {
+    align-self: end;
+    background: none;
+    border: none;
+    color: lightslategray;
+    font-size: 1em;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 10px;
+}
+
+.follow-button {
+    background: linear-gradient(45deg, #20B2AA, #3CB371);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+.follow-button:hover {
+    background: linear-gradient(45deg, #3CB371, #20B2AA);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.comment-title {
+    color: lightslategray;
+    font-size: 24px;
+    margin-bottom: 10px;
+    /* color: #333; */
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.comment-name {
+    display: block;
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.plan-comments-section {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.plan-comment {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}

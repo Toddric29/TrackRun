@@ -26,22 +26,24 @@ function DeletePlanModal({planId}) {
     };
 
     return (
-        <>
-        <h1>Confirm Delete</h1>
-        <h2>Are you sure you want to remove this plan?</h2>
+        <div className='pop-modal'>
+            <div className='modal-content'>
+            <h1 className='modal-h1'>Confirm Delete</h1>
+        <h2 className='modal-h2'>Are you sure you want to remove this plan?</h2>
         <form>
-        <div style={{textAlign:'center'}}>
         <div>
-        <button style={{backgroundColor:'red', color:'#fff',border:'none', width:150}}
+        <div>
+        <button className='button-modal'
         type="button" onClick={handleSubmit}>Yes (Delete Plan)</button>
         </div>
         <div>
-        <button style={{backgroundColor:'grey', color:'#fff',border:'none', width:150}}
+        <button className='button-modal2'
         type="button" onClick={handleCancel}>No (Keep Plan)</button>
         </div>
         </div>
         </form>
-        </>
+            </div>
+        </div>
     )
 }
 

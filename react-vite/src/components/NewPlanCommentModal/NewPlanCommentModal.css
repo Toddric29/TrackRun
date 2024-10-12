@@ -1,0 +1,39 @@
+.modal-comment {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .modal-error {
+    color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  }
+
+  .button-comment {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .button-comment:hover {
+    background-color: #45a049;
+  }

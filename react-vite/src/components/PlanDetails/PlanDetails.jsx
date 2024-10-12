@@ -2,7 +2,7 @@ import './PlanDetails.css';
 import { fetchPlan } from '../../redux/training_plans';
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, NavLink } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import * as planActions from '../../redux/training_plans'
@@ -63,10 +63,12 @@ const PlanDetails = () => {
       }
 
       useEffect(() => {
-        dispatch(fetchPlan(planId))
-        dispatch(activitiesActions.fetchPlanActivities(planId))
-        dispatch(planCommentsActions.fetchPlanComments(planId))
-        dispatch(tagActions.fetchPlanTags(planId))
+        Promise.all([
+          dispatch(planCommentsActions.fetchPlanComments(planId)),
+          dispatch(fetchPlan(planId)),
+          dispatch(activitiesActions.fetchPlanActivities(planId)),
+          dispatch(tagActions.fetchPlanTags(planId))
+        ])
           .then(() => setIsLoaded(true))
     }, [planId, dispatch]);
 
@@ -95,24 +97,30 @@ const PlanDetails = () => {
     return (
         <div className='training-plan-details'>
             <div className='training-plan-section'>
-                <h1 className='training-plan-title'>{plan.title}</h1>
-                <h2>{plan.body}</h2>
+                <h1 className='title'>{plan.title}</h1>
+                <div className='t-plan-body'>
+                <h2 className='body'>{plan.body}</h2>
+                </div>
             </div>
             <div className='activities-section'>
                 <div className='title'>
                     <h2 className='activities-title'>Activities</h2>
                 </div>
-            {Object.values(activities).map(activity => {
-                return (<Activity activity={activity} />);
+                <div className='followed-plans'>
+                {Object.values(activities).map(activity => {
+                return (<div className="followed-plan-title">
+                  <Activity activity={activity} />
+                </div>);
                 })}
-                <div className='activity-button'>
+                </div>
+                {user && sessionUser.username == plan.username && <span className='activity-button'>
                 <OpenModalButton
                 className='manage-buttons'
                 buttonText="Create Activity"
                 onItemClick={closeMenu}
                 modalComponent={<CreateActivityModal planId={planId}/>}
                 />
-                </div>
+                </span>}
             </div>
             <div>
                 <div className='follow-section'>
@@ -121,17 +129,22 @@ const PlanDetails = () => {
                 className="follow-button"
                 title={alreadyFollowed ? "Follow this plan" : "Unfollow this plan"}>
                     {alreadyFollowed ?
-                    <AiOutlineMinusCircle /> : <AiFillPlusCircle />}
+                    "Unfollow this plan" : "Follow this plan"}
                     </button>}
                 </div>
                     </div>
                     <div className='plan-comments-section'>
-                    <h2 className='plan-comments-title'>Plan Comments</h2>
+                    <h2 className='comment-title'>Plan Comments</h2>
                     {Object.values(planComments).map(planComment => {
                 return (
                     <div key={planComment.id}>
                         <div className='plan-comment'>
+                        <span className='body'>
                         {planComment.comment}
+                          </span>
+                          <span className='comment-name'>
+                              --{planComment.User?.username || 'Anon'}
+                            </span>
                         </div>
                     {user == planComment.user_id && <div className='plan-comment-buttons'>
                     <OpenModalButton
@@ -158,17 +171,24 @@ const PlanDetails = () => {
             onItemClick={closeMenu}
             modalComponent={<CreatePlanCommentModal planId={planId}/>}
             />
-            <div>
+            <div className='tags-section'>
+              <h1 className='comment-title'>Tags</h1>
+            </div>
+            <div className='followed-plans'>
             {hasTags && Object.values(tags).map(tag => (
-      <div key={tag.id}
-      onClick={() => navigate(`/training-plans/tags/${tag.id}`)}>
+      <div className='followed-plan-title' key={tag.id}>
+        <h2 className='f-plan-title'>
+          <NavLink className='nav-link' to={`/training-plans/tags/${tag.id}`}>
+          {tag.name}
+          </NavLink>
+        </h2>
         <div className='tag'>
-          <h3>{tag.name}</h3>
         </div>
         {user == plan.user_id && (
           <div className='tag-buttons'>
             <OpenModalButton
               className='manage-buttons'
+              onClick={(event) => event.stopPropagation()}
               buttonText="Delete Tag"
               onItemClick={closeMenu}
               modalComponent={<DeleteTagModal planId={plan.id} tagId={tag.id}/>} />
@@ -176,9 +196,8 @@ const PlanDetails = () => {
         )}
       </div>
     ))}
-
-    {/* Render Add Tag button regardless of tags presence */}
-    {user == plan.user_id && (
+            </div>
+            {user == plan.user_id && (
       <div className='tag-buttons'>
         <OpenModalButton
           className='manage-buttons'
@@ -187,7 +206,6 @@ const PlanDetails = () => {
           modalComponent={<CreateTagModal planId={plan.id}/>} />
       </div>
     )}
-            </div>
         </div>
     )
 }

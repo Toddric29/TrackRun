@@ -1,0 +1,75 @@
+.manage-buttons {
+    background: none;
+  border: none;
+  color: lightslategray;
+  font-size: 1em;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-right: 10px;
+}
+
+.manage-buttons:last-child {
+    margin-right: 0;
+}
+
+.manage-buttons:hover {
+    color: blue;
+}
+
+.followed-plan-title {
+    display: grid;
+  grid-template-rows: 1fr auto;
+    position: relative;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 0;
+    background: linear-gradient(45deg, #d1e0e0, #f0f8ff);
+}
+
+.followed-plans {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.followed-plan-title:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+
+
+.your-plan-body {
+    background-color: rgba(255, 208, 0, 0.812);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: inline-block;
+    margin-top: 0;
+    background-color: #f5f5f5;
+}
+
+.plan-title {
+    margin-bottom: 5px;
+}
+
+.body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.plan-body {
+    font-size: small;
+    font-style: italic;
+    margin-top: auto;
+}
+
+.f-plan-title {
+    margin-top: 0;
+}

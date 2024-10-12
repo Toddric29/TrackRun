@@ -12,7 +12,6 @@ const EditActivityModal = ({activityId}) => {
         activity.id === activityId
     )
     const activity1 = activity[0]
-    console.log(activity1, '<------Body')
 
   const dispatch = useDispatch();
   const [title, setTitle] = useState("")
@@ -29,7 +28,6 @@ const EditActivityModal = ({activityId}) => {
     setTitle(activity1.title);
     setBody(activity1.body);
   },[activity1])
-  console.log(activity, '<------oldBody')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,28 +42,30 @@ const EditActivityModal = ({activityId}) => {
     .then(closeModal)
   };
   return (
-    <div className='modal'>
+    <div className='modal-comment'>
       <form onSubmit={handleSubmit}>
-      <label>
+      <label className='comment-title'>
           Title
           <input
             type="text"
             defaultValue={title}
             onChange={updateTitle}
             required
+            className="modal-input"
           />
         </label>
-        {errors.title && <p>{errors.title}</p>}
-        <label>
+        {errors.title && <p className="modal-error">{errors.title}</p>}
+        <label className='comment-title'>
           Body
           <input
             type="text"
             defaultValue={body}
             onChange={updateBody}
             required
+            className="modal-input"
           />
         </label>
-        <button type="submit">Update Activity</button>
+        <button className='button-comment' type="submit">Update Activity</button>
       </form>
     </div>
   );
