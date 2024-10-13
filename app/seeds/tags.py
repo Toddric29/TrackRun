@@ -9,17 +9,53 @@ def seed_tag():
         name='Marathon', category_id='3'
     )
     demo3 = Tag(
-        name='Half Marathon', category_id='2'
+        name='Half Marathon', category_id='3'
     )
 
     demo4 = Tag(
-        name='5K', category_id='1'
+        name='5K', category_id='3'
+    )
+
+    demo5 = Tag(
+        name='Beginner', category_id='1'
+    )
+    demo6 = Tag(
+        name='Expert', category_id='1'
+    )
+    demo7 = Tag(
+        name='Amatuer', category_id='1'
+    )
+
+    demo8 = Tag(
+        name='Experienced', category_id='1'
+    )
+
+    demo9 = Tag(
+        name='6 months', category_id='2'
+    )
+    demo10 = Tag(
+        name='3 months', category_id='2'
+    )
+    demo11 = Tag(
+        name='5 months', category_id='2'
+    )
+
+    demo12 = Tag(
+        name='2 months', category_id='2'
     )
 
     db.session.add(demo)
     db.session.add(demo2)
     db.session.add(demo3)
     db.session.add(demo4)
+    db.session.add(demo5)
+    db.session.add(demo6)
+    db.session.add(demo7)
+    db.session.add(demo8)
+    db.session.add(demo9)
+    db.session.add(demo10)
+    db.session.add(demo11)
+    db.session.add(demo12)
     db.session.commit()
 
 
