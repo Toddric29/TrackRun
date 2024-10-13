@@ -31,24 +31,29 @@ function CreateActivityCommentModal({activityId}) {
             closeModal()
         })
     }
-    const handleCancel = () => {
-        closeModal()
+    const handleCancelClick = (e) => {
+      e.preventDefault();
+      closeModal()
     };
 
     return (
         <div className="modal-comment">
+          <h1 className='title'>Add a Comment</h1>
       <form className="modal-form" onSubmit={handleSubmit}>
         <label>
-          <input
+          <textarea
             type="text"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             required
-            className="modal-input"
+            className="modal-text-area"
           />
         </label>
         {errors.comment && <p className="modal-error">{errors.comment}</p>}
-        <button className='button-comment' type="submit">Add a Comment</button>
+        <span style={{display: 'flex', justifyContent: 'center'}}>
+        <button className='button-comment' type="submit">Add Comment</button>
+        <button className='button-comment2' type="button" onClick={handleCancelClick}>Cancel</button>
+        </span>
       </form>
         </div>
     )

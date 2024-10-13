@@ -31,12 +31,14 @@ function CreateTagModal({planId}) {
             closeModal()
         })
     }
-    const handleCancel = () => {
-        closeModal()
+    const handleCancelClick = (e) => {
+      e.preventDefault();
+      closeModal()
     };
 
     return (
         <div className='modal-comment'>
+          <h1 className='title'>Add a Tag</h1>
       <form className="modal-form" onSubmit={handleSubmit}>
         <label>
           <input
@@ -48,7 +50,10 @@ function CreateTagModal({planId}) {
           />
         </label>
         {errors.name && <p className="modal-error">{errors.name}</p>}
-        <button className='button-comment' type="submit">Add a Tag</button>
+        <span style={{display: 'flex', justifyContent: 'center'}}>
+        <button className='button-comment' type="submit">Add Tag</button>
+        <button className='button-comment2' type="button" onClick={handleCancelClick}>Cancel</button>
+        </span>
       </form>
         </div>
     )

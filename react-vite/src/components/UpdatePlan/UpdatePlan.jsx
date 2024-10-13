@@ -63,29 +63,31 @@ const EditPlanForm = () => {
 
   return (
     <section className="new-form-holder centered middled">
-        <h1 style={{paddingRight: 400}}>Update Your Plan</h1>
-      <form className="create-spot-form" onSubmit={handleSubmit}>
+        <h1 className='title'>Update Your Plan</h1>
+      <form className="create-plan-form" onSubmit={handleSubmit}>
         <div>
-          <p>Title</p>
+        <p className='comment-title'>Title</p>
         <input
           type="text"
           placeholder="Title"
           value={title}
+          className="modal-input"
           onChange={updateTitle} />
-          {errors.title && (<p>{errors.title}</p>)}
+          {errors.title && (<p className="modal-error">{errors.title}</p>)}
         </div>
-        <p>Body</p>
+        <p className='comment-title'>Body</p>
         <div>
-        <input
+        <textarea
           type="text"
           placeholder="Body"
           value={body}
+          className="modal-text-area"
           onChange={updateBody} />
-          {errors.body && (<p>{errors.body}</p>)}
+          {errors.body && (<p className="modal-error">{errors.body}</p>)}
         </div>
-        <span style={{paddingLeft: 450}}>
-        <button type="submit">Update Your Plan</button>
-        <button type="button" onClick={handleCancelClick}>Cancel</button>
+        <span style={{display: 'flex', justifyContent: 'center'}}>
+        <button style={{alignItems: 'center'}}className='button-modal3' type="submit">Update Your Plan</button>
+        <button className='button-modal2' type="button" onClick={handleCancelClick}>Cancel</button>
         </span>
       </form>
     </section>

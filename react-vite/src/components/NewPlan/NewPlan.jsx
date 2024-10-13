@@ -47,37 +47,35 @@ const CreatePlanForm = () => {
 
   const handleCancelClick = (e) => {
     e.preventDefault();
-    // hideForm();
   };
 
   return (
     <section className="new-form-holder centered middled">
-        <h1 style={{paddingRight: 400}}>Create a Plan</h1>
-        <h2 style={{textAlign: 'center', paddingRight: 250}}>Where&apos;s your place located?</h2>
-        <h3 style={{textAlign: 'center', paddingLeft: 30}}>Guests will only get your exact address once they
-            booked a reservation.</h3>
-      <form className="create-spot-form" onSubmit={handleSubmit}>
+        <h1 className='title'>Create a Plan</h1>
+      <form className="create-plan-form" onSubmit={handleSubmit}>
         <div>
-          <p>Title</p>
+          <p className='comment-title'>Title</p>
         <input
           type="text"
           placeholder="Title"
           value={title}
-          onChange={updateTitle} />
-          {errors.title && (<p>{errors.title}</p>)}
+          onChange={updateTitle}
+          className="modal-input" />
+          {errors.title && (<p className="modal-error">{errors.title}</p>)}
         </div>
-        <p>Body</p>
+        <p className='comment-title'>Body</p>
         <div>
-        <input
+        <textarea
           type="text"
           placeholder="Body"
           value={body}
-          onChange={updateBody} />
-          {errors.body && (<p>{errors.body}</p>)}
+          onChange={updateBody}
+          className="modal-text-area" />
+          {errors.body && (<p className="modal-error">{errors.body}</p>)}
         </div>
-        <span style={{paddingLeft: 450}}>
-        <button type="submit">Create new Plan</button>
-        <button type="button" onClick={handleCancelClick}>Cancel</button>
+        <span style={{display: 'flex', justifyContent: 'center'}}>
+        <button style={{alignItems: 'center'}}className='button-modal3' type="submit">Create New Plan</button>
+        <button className='button-modal2' type="button" onClick={handleCancelClick}>Cancel</button>
         </span>
       </form>
     </section>

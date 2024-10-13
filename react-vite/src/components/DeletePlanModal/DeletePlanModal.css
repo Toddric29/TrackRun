@@ -36,12 +36,21 @@
     transition: background-color 0.3s ease;
 }
 
+.button-modal3 {
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
 .button-modal:hover {
     background-color: red;
 }
 
 .button-modal2:hover {
     background-color: darkgray;
+}
+
+.button-modal3:hover {
+    background-color: green;
 }
 
 .modal-content {

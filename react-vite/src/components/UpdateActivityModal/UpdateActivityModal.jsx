@@ -36,13 +36,18 @@ const EditActivityModal = ({activityId}) => {
 
 
 
-
     dispatch(activityActions.editActivity({title: title, body: body}, activity1.id))
     .then(() => dispatch(activityActions.fetchPlanActivities(planId)))
     .then(closeModal)
   };
+
+  const handleCancelClick = (e) => {
+    e.preventDefault();
+    closeModal()
+  };
   return (
     <div className='modal-comment'>
+      <h1 className='title'>Edit Activity</h1>
       <form onSubmit={handleSubmit}>
       <label className='comment-title'>
           Title
@@ -57,15 +62,18 @@ const EditActivityModal = ({activityId}) => {
         {errors.title && <p className="modal-error">{errors.title}</p>}
         <label className='comment-title'>
           Body
-          <input
+          <textarea
             type="text"
             defaultValue={body}
             onChange={updateBody}
             required
-            className="modal-input"
+            className="modal-text-area"
           />
         </label>
+        <span style={{display: 'flex', justifyContent: 'center'}}>
         <button className='button-comment' type="submit">Update Activity</button>
+        <button className='button-comment2' type="button" onClick={handleCancelClick}>Cancel</button>
+        </span>
       </form>
     </div>
   );

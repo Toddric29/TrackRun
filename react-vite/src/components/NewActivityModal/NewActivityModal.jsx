@@ -31,8 +31,9 @@ function CreateActivityModal({planId}) {
             closeModal()
         })
     }
-    const handleCancel = () => {
-        closeModal()
+    const handleCancelClick = (e) => {
+      e.preventDefault();
+      closeModal()
     };
 
     return (
@@ -52,7 +53,7 @@ function CreateActivityModal({planId}) {
         {errors.title && <p className="modal-error">{errors.title}</p>}
         <label className='comment-title'>
           Body
-          <input
+          <textarea
             type="text"
             value={body}
             onChange={(e) => setBody(e.target.value)}
@@ -60,7 +61,10 @@ function CreateActivityModal({planId}) {
             className="modal-input"
           />
         </label>
+        <span style={{display: 'flex', justifyContent: 'center'}}>
         <button className='button-comment' type="submit">Create Activity</button>
+        <button className='button-comment2' type="button" onClick={handleCancelClick}>Cancel</button>
+        </span>
       </form>
         </div>
     )
