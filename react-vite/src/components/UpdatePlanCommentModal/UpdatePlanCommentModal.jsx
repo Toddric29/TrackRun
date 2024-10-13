@@ -41,20 +41,29 @@ const EditPlanCommentModal = ({commentId}) => {
     .then(() => dispatch(planCommentActions.fetchPlanComments(planId)))
     .then(closeModal)
   };
+
+  const handleCancelClick = (e) => {
+    e.preventDefault();
+    closeModal()
+  };
   return (
     <div className='modal-comment'>
+      <h1 className='title'>Edit Comment</h1>
       <form onSubmit={handleSubmit}>
       <label>
-          <input
+          <textarea
             type="text"
             defaultValue={comment}
             onChange={updateComment}
             required
-            className="modal-input"
+            className="modal-text-area"
           />
         </label>
         {errors.comment && <p className="modal-error">{errors.comment}</p>}
+        <span style={{display: 'flex', justifyContent: 'center'}}>
         <button className='button-comment' type="submit">Update Comment</button>
+        <button className='button-comment2' type="button" onClick={handleCancelClick}>Cancel</button>
+        </span>
       </form>
     </div>
   );
