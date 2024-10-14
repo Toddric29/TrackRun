@@ -57,7 +57,6 @@ export const removeActivity = (activityId) => async () => {
 }
 
 export const editActivity = (payload, activityId) => async (dispatch) => {
-    console.log(payload, '<--- Payload')
     const res = await fetch(`/api/activity/${activityId}`, {
         method: 'PUT',
         headers: {
@@ -80,13 +79,11 @@ const activitiesReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case LOAD_ACTIVITIES: {
-            // console.log(action.payload, '<------ACTION')
             newState = {...state};
             newState.planActivities = action.payload;
             return newState
         }
         case NEW_ACTIVITIES: {
-            console.log(action, '<----action')
             if (!state[action.id]) {
                 const newState = {
                     ...state,

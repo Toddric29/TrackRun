@@ -145,7 +145,6 @@ const plansReducer = (state = initialState, action) => {
           return newState
       }
       case NEW_PLAN: {
-        console.log(action, '<----action')
         if (!state[action.id]) {
             const newState = {
                 ...state,

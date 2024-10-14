@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useModal } from '../../context/Modal';
+import { useNavigate } from 'react-router-dom';
 import * as tagActions from '../../redux/tags'
 import './LandingPage.css'
 
@@ -11,18 +10,6 @@ const LandingPage = () => {
     const dispatch = useDispatch()
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
-    const { planId } = useParams();
-    const {setModalContent} = useModal();
-    const sessionUser = useSelector(state => state.session.user)
-    const user = sessionUser ? sessionUser.id : null
-    const plans = useSelector(state => state.plans.planDetails);
-    const plan = plans[planId];
-    const followedPlans = useSelector((state) => state.userState.plansFollowed)
-    const alreadyFollowed = Object.values(followedPlans).find(followedPlan => followedPlan.id == planId)
-    const id = sessionUser ? sessionUser.id : null
-    const activities = useSelector((state) => state.activities.planActivities)
-    const planComments = useSelector((state) => state.planComments.planComments)
-    const activityComments = useSelector((state) => state.activityComments.activityComments)
     const tags = useSelector((state) => state.tags.allTags)
 
     useEffect(() => {
@@ -39,16 +26,12 @@ const LandingPage = () => {
         return () => document.removeEventListener("click", closeMenu);
       }, [showMenu]);
 
-      const closeMenu = () => setShowMenu(false);
 
       useEffect(() => {
         dispatch(tagActions.fetchTags())
           .then(() => setIsLoaded(true))
     }, [dispatch]);
 
-    if (isLoaded) {
-      console.log(tags, '<------tags')
-    }
 
     if (!isLoaded) {
         return (

@@ -1,6 +1,3 @@
-import * as planActions from '../../redux/training_plans';
-import * as userActions from '../../redux/users'
-import * as activityActions from '../../redux/activities'
 import * as planCommentActions from '../../redux/training_plan_comments'
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';

@@ -21,7 +21,7 @@
   }
 
   .modal-input {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 15px;
@@ -46,6 +46,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+
   }
 
   .modal-button:hover {

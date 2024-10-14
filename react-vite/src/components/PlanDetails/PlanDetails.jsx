@@ -2,16 +2,13 @@ import './PlanDetails.css';
 import { fetchPlan } from '../../redux/training_plans';
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate, NavLink } from 'react-router-dom';
-import { useModal } from '../../context/Modal';
+import { useParams, NavLink } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import * as planActions from '../../redux/training_plans'
 import * as activitiesActions from '../../redux/activities'
 import * as planCommentsActions from '../../redux/training_plan_comments'
-import * as activityCommentActions from '../../redux/activity_comments'
 import * as tagActions from '../../redux/tags'
 import { fetchFollowings } from '../../redux/users';
-import { AiFillPlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import CreateActivityModal from '../NewActivityModal/NewActivityModal';
 import Activity from '../Activity/Activity';
 import CreatePlanCommentModal from '../NewPlanCommentModal/NewPlanCommentModal';
@@ -21,23 +18,19 @@ import CreateTagModal from '../NewTagModal/NewTagModal';
 import DeleteTagModal from '../DeleteTagModal/DeleteTagModal';
 
 const PlanDetails = () => {
-    const navigate = useNavigate();
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch()
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
     const { planId } = useParams();
-    const {setModalContent} = useModal();
     const sessionUser = useSelector(state => state.session.user)
     const user = sessionUser ? sessionUser.id : null
     const plans = useSelector(state => state.plans.planDetails);
     const plan = plans[planId];
     const followedPlans = useSelector((state) => state.userState.plansFollowed)
     const alreadyFollowed = Object.values(followedPlans).find(followedPlan => followedPlan.id == planId)
-    const id = sessionUser ? sessionUser.id : null
     const activities = useSelector((state) => state.activities.planActivities)
     const planComments = useSelector((state) => state.planComments.planComments)
-    const activityComments = useSelector((state) => state.activityComments.activityComments)
     const tags = useSelector((state) => state.tags.tags)
 
     useEffect(() => {
@@ -108,7 +101,7 @@ const PlanDetails = () => {
                 </div>
                 <div className='followed-plans'>
                 {Object.values(activities).map(activity => {
-                return (<div className="followed-plan-title">
+                return (<div key={activity.id}className="followed-plan-title">
                   <Activity activity={activity} />
                 </div>);
                 })}
@@ -165,12 +158,12 @@ const PlanDetails = () => {
                 )
             })}
                     </div>
-            <OpenModalButton
+            {user && <OpenModalButton
             className='manage-buttons'
             buttonText="Add a Comment"
             onItemClick={closeMenu}
             modalComponent={<CreatePlanCommentModal planId={planId}/>}
-            />
+            />}
             <div className='tags-section'>
               <h1 className='comment-title'>Tags</h1>
             </div>

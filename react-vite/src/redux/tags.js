@@ -63,8 +63,6 @@ export const fetchPlansByTag = (tagId) => async(dispatch) => {
         }
     } catch (error) {
         console.error('Fetch error:', error);
-        // Optionally dispatch an error action here
-        // dispatch(fetchPlansByTagError(error));
         return error;
     }
 };
@@ -114,27 +112,15 @@ const tagsReducer = (state = initialState, action) => {
         }
     }
     case LOAD_PLAN_TAGS: {
-        // console.log(action, '<----TAGACTION')
         newState = {...state};
         newState.tags = action.payload;
         return newState
     }
     case LOAD_PLAN_BY_TAG: {
-        console.log(action, '<----TAGACTION')
         newState = {...state};
         newState.tags = action.payload;
         return newState
     }
-    // case NEW_PLAN_TAG: {
-    //     if (!state[action.id]) {
-    //         const newState = {
-    //             ...state,
-    //             [action.id]: action
-    //         }
-    //         return newState
-    //     }
-    //     return {...state}
-    // }
     default:
       return state;
   }
