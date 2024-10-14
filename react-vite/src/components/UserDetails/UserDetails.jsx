@@ -4,7 +4,6 @@ import { useEffect, useState, useRef} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { NavLink, useNavigate} from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
-import {editPlan, removePlan, fetchPlans } from '../../redux/training_plans';
 import DeletePlanModal from '../DeletePlanModal/DeletePlanModal';
 
 const UserDetails = () => {
@@ -16,7 +15,6 @@ const UserDetails = () => {
     const followedPlans = useSelector((state) => state.userState.plansFollowed)
     const sessionUser = useSelector(state => state.session.user)
     const user = sessionUser ? sessionUser.id : null
-    console.log(followedPlans, '<---- FollowedPlans')
 
     useEffect(() => {
         if (!showMenu) return;
@@ -80,7 +78,7 @@ const UserDetails = () => {
                     <div className='followed-plans'>
                     {Object.values(followedPlans).map(followedPlan => {
                         return (
-                            <h3 className='followed-plan-title'>
+                            <h3 key={followedPlan.id} className='followed-plan-title'>
                                 <NavLink className='nav-link' key={followedPlan.id} to={`/training-plans/${followedPlan.id}`}>• {followedPlan.title}</NavLink>
                             </h3>
                     )

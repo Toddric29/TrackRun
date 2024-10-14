@@ -88,14 +88,12 @@ const usersReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case LOAD_USERS: {
-            // console.log(action, '<-----action')
             newState = {...state};
             newState.allUsers = action.payload.users
             return newState
         }
         case MY_PLANS: {
             const newState = {...state}
-            // console.log(action.payload, '<-----action')
             newState.myPlans = action.payload.reduce((acc, plan) => {
                 acc[plan.id] = plan;
 
@@ -104,7 +102,6 @@ const usersReducer = (state = initialState, action) => {
             return newState
         }
         case LOAD_FOLLOWERS: {
-            console.log(action.payload, '<------')
             newState = {...state};
             newState.plansFollowed = action.payload
             return newState

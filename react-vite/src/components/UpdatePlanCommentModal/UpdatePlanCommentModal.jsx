@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as activityActions from '../../redux/activities'
 import * as planCommentActions from '../../redux/training_plan_comments'
 import { useModal } from '../../context/Modal';
 import { useParams } from 'react-router-dom';
@@ -13,7 +12,6 @@ const EditPlanCommentModal = ({commentId}) => {
         planComment.id === commentId
     )
     const pComment = planComment[0]
-    console.log(pComment, '<------Body')
 
   const dispatch = useDispatch();
   const [comment, setComment] = useState("")
@@ -27,7 +25,6 @@ const EditPlanCommentModal = ({commentId}) => {
     if (!pComment) return
     setComment(pComment.comment);
   },[pComment])
-  console.log(pComment.comment, '<------oldBody')
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -35,7 +35,6 @@ const CreatePlanForm = () => {
 
     dispatch(createPlan(payload))
     .then( (newPlan) =>  {
-        console.log(newPlan, '<-----newPlan')
       navigate(`/training-plans/${newPlan.id}`)
     })
     .catch(async res => {
@@ -47,6 +46,7 @@ const CreatePlanForm = () => {
 
   const handleCancelClick = (e) => {
     e.preventDefault();
+    navigate(`/training-plans`)
   };
 
   return (

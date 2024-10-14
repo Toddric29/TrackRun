@@ -1,0 +1,11 @@
+.a-comment-name {
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.a-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: small;
+}

@@ -8,6 +8,7 @@ import EditActivityModal from '../UpdateActivityModal/UpdateActivityModal';
 import CreateActivityCommentModal from "../NewActivityCommentModal/NewActivityCommentModal";
 import DeleteActivityCommentModal from "../DeleteActivityCommentModal/DeleteActivityCommentModal";
 import EditActivityCommentModal from "../UpdateActivityCommentModal/UpdateActivityCommentModal";
+import './Activity.css';
 
 const Activity = ({activity}) => {
     const { planId } = useParams();
@@ -21,7 +22,6 @@ const Activity = ({activity}) => {
     const comments = Object.values(activityComments).filter((comments) => {
         return comments.activity_id === activity.id
     })
-    console.log(comments, 'comments')
 
     useEffect(() => {
         if (!showMenu) return;
@@ -69,7 +69,8 @@ const Activity = ({activity}) => {
                 { comments.length == 0 ? <button className='manage-buttons' onClick={loadComments}>Load Comments</button>: comments.map(comment => {
                     return (
                     <div className='comment-buttons'key={comment.id}>
-                        <h3>{comment.comment}</h3>
+                        <span className="a-body">{comment.comment}</span>
+                        <span className="a-comment-name">  --{comment.User?.username || 'Anon'}</span>
                         {user == comment.user_id &&
                         <div>
                         <OpenModalButton

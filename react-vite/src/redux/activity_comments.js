@@ -71,7 +71,6 @@ const activityCommentsReducer = (state = initialState, action) => {
     let newState;
   switch (action.type) {
     case LOAD_ACTIVITY_COMMENTS: {
-        console.log(action, '<----ACTION')
         newState = {...state};
         newState.activityComments = action.payload;
         return newState

@@ -1,7 +1,3 @@
-import * as planActions from '../../redux/training_plans';
-import * as userActions from '../../redux/users'
-import * as activityActions from '../../redux/activities'
-import * as planCommentActions from '../../redux/training_plan_comments'
 import * as tagActions from '../../redux/tags'
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -12,7 +8,6 @@ function DeleteTagModal({tagId}) {
     const dispatch = useDispatch();
     const { planId} = useParams();
     const { closeModal } = useModal()
-    console.log(tagId, '<-------PLANID')
 
     const handleSubmit = (e) => {
         e.preventDefault(e);

@@ -56,9 +56,9 @@ const AllPlans = () => {
             <div className='followed-plans'>
             {Object.values(plans).map(plan => {
                 return (
-                    <div className='followed-plan-title'>
+                    <div key={plan.id} className='followed-plan-title'>
                     <h2 className='f-plan-title'>
-                        <NavLink className='nav-link' key={plan.id} to={`/training-plans/${plan.id}`}>
+                        <NavLink className='nav-link' to={`/training-plans/${plan.id}`}>
                         • {plan.title}
                         </NavLink>
                         </h2>

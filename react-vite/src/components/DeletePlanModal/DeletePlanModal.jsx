@@ -7,7 +7,6 @@ import './DeletePlanModal.css';
 function DeletePlanModal({planId}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal()
-    console.log(planId)
 
     const handleSubmit = () => {
         dispatch(planActions.removePlan(planId))

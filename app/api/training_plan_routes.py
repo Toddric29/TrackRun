@@ -298,6 +298,7 @@ def get_plans_by_tag(tag_id):
           'Tags': [plantag.tags.to_dict() for plantag in TrainingPlanTag.query.filter(TrainingPlanTag.tag_id == plantag.tag_id).all()],
           'id': plantag.tag_id,
           'title': plantag.training_plans.title,
+          'training_plan_id': plantag.training_plans.id,
           'body': plantag.training_plans.body
         }
         for plantag in plantags

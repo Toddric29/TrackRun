@@ -1,12 +1,7 @@
-import * as planActions from '../../redux/training_plans';
-import * as userActions from '../../redux/users'
-import * as planCommentsActions from '../../redux/training_plan_comments'
-import * as activityActions from '../../redux/activities'
 import * as activityCommentActions from '../../redux/activity_comments'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useModal } from '../../context/Modal';
-import { useParams, useNavigate } from 'react-router-dom';
 import './NewActivityCommentModal.css';
 
 function CreateActivityCommentModal({activityId}) {
