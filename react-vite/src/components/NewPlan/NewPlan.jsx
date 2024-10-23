@@ -13,8 +13,26 @@ const CreatePlanForm = () => {
   const [body, setBody] = useState('');
   const [errors, setErrors] = useState({})
 
-  const updateTitle = (e) => setTitle(e.target.value);
-  const updateBody = (e) => setBody(e.target.value);
+  const MIN_TITLE_LENGTH = 5;
+  const MIN_BODY_LENGTH = 10;
+
+  const handleTitleChange = (e) => {
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+
+    if (newTitle.length >= MIN_TITLE_LENGTH) {
+      setErrors((prevErrors) => ({ ...prevErrors, title: undefined }));
+    }
+  };
+
+  const handleBodyChange = (e) => {
+    const newBody = e.target.value;
+    setBody(newBody);
+
+    if (newBody.length >= MIN_BODY_LENGTH) {
+      setErrors((prevErrors) => ({ ...prevErrors, body: undefined }));
+    }
+  };
 
 
   const handleSubmit = async (e) => {
@@ -32,6 +50,14 @@ const CreatePlanForm = () => {
       body
     };
 
+    if (title.length < MIN_TITLE_LENGTH) {
+      setErrors({ ...errors, title: `Title must be at least ${MIN_TITLE_LENGTH} characters long.` });
+      return;
+    }
+    if (body.length < MIN_BODY_LENGTH) {
+      setErrors({ ...errors, body: `Body must be at least ${MIN_BODY_LENGTH} characters long.` });
+      return;
+    }
 
     dispatch(createPlan(payload))
     .then( (newPlan) =>  {
@@ -59,7 +85,7 @@ const CreatePlanForm = () => {
           type="text"
           placeholder="Title"
           value={title}
-          onChange={updateTitle}
+          onChange={handleTitleChange}
           className="modal-input" />
           {errors.title && (<p className="modal-error">{errors.title}</p>)}
         </div>
@@ -69,7 +95,7 @@ const CreatePlanForm = () => {
           type="text"
           placeholder="Body"
           value={body}
-          onChange={updateBody}
+          onChange={handleBodyChange}
           className="modal-text-area" />
           {errors.body && (<p className="modal-error">{errors.body}</p>)}
         </div>
