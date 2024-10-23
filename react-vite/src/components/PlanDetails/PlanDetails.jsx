@@ -49,11 +49,11 @@ const PlanDetails = () => {
 
       const closeMenu = () => setShowMenu(false);
 
-      if (user) {
         useEffect(() => {
+          if (user) {
             dispatch(fetchFollowings())
-        }, [dispatch])
-      }
+          }
+        }, [dispatch, user])
 
       useEffect(() => {
         Promise.all([
@@ -100,6 +100,7 @@ const PlanDetails = () => {
                     <h2 className='activities-title'>Activities</h2>
                 </div>
                 <div className='followed-plans'>
+                  {/* <Activities activities = {activities} /> */}
                 {Object.values(activities).map(activity => {
                 return (<div key={activity.id}className="followed-plan-title">
                   <Activity activity={activity} />

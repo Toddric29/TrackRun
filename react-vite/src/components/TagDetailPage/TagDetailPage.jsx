@@ -13,7 +13,7 @@ function TagDetailPage() {
   useEffect(() => {
     dispatch(fetchPlansByTag(tagId))
     .then(() => setIsLoaded(true))
-  }, [dispatch]);
+  }, [dispatch, tagId]);
 
   if (!isLoaded) {
     return (

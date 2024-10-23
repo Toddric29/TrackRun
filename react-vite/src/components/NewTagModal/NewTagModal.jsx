@@ -1,5 +1,5 @@
 import * as tagActions from '../../redux/tags'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useModal } from '../../context/Modal';
 import './NewTagModal.css';
@@ -7,10 +7,19 @@ import './NewTagModal.css';
 function CreateTagModal({planId}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal()
-    const user = useSelector(state => state.session.user)
     const [name, setName] = useState('');
     const [errors, setErrors] = useState({})
 
+    const MIN_NAME_LENGTH = 3;
+
+    const handleNameChange = (e) => {
+      const newName = e.target.value;
+      setName(newName);
+
+      if (newName.length >= MIN_NAME_LENGTH) {
+        setErrors((prevErrors) => ({ ...prevErrors, name: undefined }));
+      }
+    };
 
     const payload = {
         name
@@ -18,6 +27,10 @@ function CreateTagModal({planId}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (name.length < MIN_NAME_LENGTH) {
+          setErrors({ ...errors, name: `Name must be at least ${MIN_NAME_LENGTH} characters long.` });
+          return;
+        }
         dispatch(tagActions.createPlanTag(planId, payload))
         .then(() => {
             dispatch(tagActions.fetchPlanTags(planId))
@@ -39,8 +52,7 @@ function CreateTagModal({planId}) {
           <input
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
+            onChange={handleNameChange}
             className="modal-input"
           />
         </label>
