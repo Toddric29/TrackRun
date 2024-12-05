@@ -23,6 +23,7 @@ function TagDetailPage() {
 
   return (
     <div className="tag-details">
+      {tags.length == 0 && <div>Hello</div>}
         {tags[0] && <div className="tag-title">
             <h1 className="title">{tags[0].Tags[0].name}</h1>
         </div>}

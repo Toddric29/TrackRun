@@ -32,6 +32,7 @@ const PlanDetails = () => {
     const activities = useSelector((state) => state.activities.planActivities)
     const planComments = useSelector((state) => state.planComments.planComments)
     const tags = useSelector((state) => state.tags.tags)
+    console.log(plan)
 
     useEffect(() => {
         if (!showMenu) return;
@@ -90,9 +91,11 @@ const PlanDetails = () => {
     return (
         <div className='training-plan-details'>
             <div className='training-plan-section'>
-                <h1 className='title'>{plan.title}</h1>
+              <h1 className='title'>{plan.title}</h1>
                 <div className='t-plan-body'>
-                <h2 className='body'>{plan.body}</h2>
+                <h2 className='body'>{plan.body}
+                  <span className='username'>  --created by {plan.username}</span>
+                </h2>
                 </div>
             </div>
             <div className='activities-section'>

@@ -21,6 +21,7 @@ class Tag(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'hasTrainingPlan': len(self.training_plan_tags) > 0,
             'category_id': self.category_id,
             'created_at': self.created_at,
             'updated_at': self.updated_at
