@@ -43,13 +43,18 @@ const LandingPage = () => {
         <div className='landing-page'>
             <h1 className='title'>Find Training Plans By Clicking on the Tags Below!</h1>
             {Object.values(tags).map(tag => {
-                return (
-                    <div className='tags'key={tag.id}
-                    onClick={() => navigate(`/training-plans/tags/${tag.id}`)}>
-                        <h2 className='tag'>{tag.name}</h2>
-                    </div>
-                )
-            })}
+    // Check if the tag has a training plan
+    if (tag.hasTrainingPlan) {
+        return (
+            <div className='tags' key={tag.id}
+                 onClick={() => navigate(`/training-plans/tags/${tag.id}`)}>
+                <h2 className='tag'>{tag.name}</h2>
+            </div>
+        );
+    }
+    // If no training plan, return null to skip rendering
+    return null;
+})}
         </div>
     )
 }
