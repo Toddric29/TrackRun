@@ -47,7 +47,7 @@ const Activity = ({activity}) => {
     return (
         <div className='activity' key={activity.id}>
                 <div className='f-plan-title'>
-                    <h2 className="nav-link">{activity.title}</h2>
+                    <h2 className="nav-link-activity">{activity.title}</h2>
                     <h3 className="plan-body">{activity.body}</h3>
             </div>
             <div className="activity-comment-section">
