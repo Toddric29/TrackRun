@@ -15,11 +15,16 @@ const LoadUsers = () => {
         .then(() => setIsLoaded(true))
     }, [dispatch])
 
-    // if (!isLoaded) {
-    //     return (
-    //         <h1>Loading...</h1>
-    //     )
-    // }
+    if (!isLoaded) {
+        return (
+        <div className="loading-screen">
+            <div className="spinner">
+                <div className='spinner-border'></div>
+            <img className='loading-icon' src='../.././favicon.ico' alt='Loading...' />
+                </div>
+                </div>
+                );
+    }
 
     return (
         <div className='users'>{Object.values(userList).map(user => {

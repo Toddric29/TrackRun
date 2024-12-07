@@ -17,8 +17,13 @@ function TagDetailPage() {
 
   if (!isLoaded) {
     return (
-        <h1>Loading...</h1>
-    )
+    <div className="loading-screen">
+        <div className="spinner">
+            <div className='spinner-border'></div>
+        <img className='loading-icon' src='../.././favicon.ico' alt='Loading...' />
+            </div>
+            </div>
+            );
 }
 
   return (

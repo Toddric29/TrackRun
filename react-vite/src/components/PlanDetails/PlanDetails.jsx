@@ -81,10 +81,15 @@ const PlanDetails = () => {
         }
       }
 
-    if (!isLoaded) {
+      if (!isLoaded) {
         return (
-            <h1>Loading...</h1>
-        )
+        <div className="loading-screen">
+            <div className="spinner">
+                <div className='spinner-border'></div>
+            <img className='loading-icon' src='../.././favicon.ico' alt='Loading...' />
+                </div>
+                </div>
+                );
     }
     const hasTags = Object.values(tags).length > 0;
 
