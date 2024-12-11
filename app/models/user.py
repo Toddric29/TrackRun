@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     training_plans = db.relationship('TrainingPlan', back_populates='user')
     training_plan_comments = db.relationship('TrainingPlanComment', back_populates='user')
     training_plan_following = db.relationship('TrainingPlanFollowing', back_populates='user')
+    training_plan_like = db.relationship('TrainingPlanLike', back_populates='user')
     activities = db.relationship('Activity', back_populates='user')
     activity_comments = db.relationship('ActivityComment', back_populates='user')
 

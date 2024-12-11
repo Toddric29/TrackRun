@@ -933,6 +933,86 @@ Unsaves a training plan.
     }
     ```
 
+### Like a Training Plan
+Like a training plan specified by id.
+
+* Require Authentication: true
+* Request
+  * Method: POST
+  * URL: /api/training-plans/:planId/like
+  * Headers:
+    * Content-Type: application/json
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "You liked this training plan"
+    }
+    ```
+
+* Error response: Couldn't find a training plan with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Training Plan couldn't be found"
+    }
+    ```
+
+* Error response: The current user has already saved this training plan
+  * Status Code: 500
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "You've already liked this training plan"
+    }
+    ```
+
+### Unlike a Training Plan
+Unlikes a training plan.
+
+* Require Authentication: true
+* Require proper authorization: Training Plan must be saved by the current user
+* Request
+  * Method: DELETE
+  * URL: /api/training-plans/:planId/like
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Training Plan unliked"
+    }
+    ```
+
+* Error response: Couldn't find a liked training plan with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Training Plan couldn't be found in your liked list"
+    }
+    ```
+
 ### Delete a Training Plan Comment
 Delete an existing Training Plan Comment.
 

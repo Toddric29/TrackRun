@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy.exc import IntegrityError
-from app.models import User, TrainingPlan, TrainingPlanFollowing, Activity, TrainingPlanActivity, db, TrainingPlanComment, TrainingPlanTag, Tag
+from app.models import User, TrainingPlan, TrainingPlanFollowing, Activity, TrainingPlanActivity, db, TrainingPlanComment, TrainingPlanTag, Tag, TrainingPlanLike
 from app.forms import TrainingPlanForm, TrainingPlanCommentForm, TagForm, ActivityForm
 
 training_plan_routes = Blueprint('training-plans', __name__)
@@ -341,6 +341,41 @@ def unfollow_question(training_plan_id):
     db.session.commit()
     res = {
        'message': 'Training Plan unsaved'
+    }
+    return jsonify(res), 200
+
+#Like a Training Plan
+@training_plan_routes.route('/<int:training_plan_id>/like', methods=['POST'])
+@login_required
+def like_question(training_plan_id):
+    plan = TrainingPlan.query.get(training_plan_id)
+    if not plan:
+        return jsonify({"error": "Training Plan not found"}), 404
+
+    like = TrainingPlanLike(user_id=current_user.id, training_plan_id=training_plan_id)
+    db.session.add(like)
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify({"error": "You are already like this training plan."}), 400
+
+    res = {
+        'message': 'You liked this training plan.'
+    }
+    return jsonify(res), 200
+
+# Unlike a Training Plan
+@training_plan_routes.route('/<int:training_plan_id>/like', methods=['DELETE'])
+@login_required
+def unlike_question(training_plan_id):
+    like = TrainingPlanLike.query.get([current_user.id, training_plan_id])
+    if not like:
+       return jsonify({"message": "Training Plan couldn't be found in your liked list"}), 404
+    db.session.delete(like)
+    db.session.commit()
+    res = {
+       'message': 'Training Plan unliked.'
     }
     return jsonify(res), 200
 

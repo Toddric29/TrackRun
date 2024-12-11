@@ -96,6 +96,18 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE training_plan_following SET SCHEMA {SCHEMA};")
 
+    op.create_table('training_plan_like',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('training_plan_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.func.now()),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['training_plan_id'], ['training_plans.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'training_plan_id')
+    )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE training_plan_like SET SCHEMA {SCHEMA};")
+
     op.create_table('tag_category',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=5000), nullable=False),
@@ -168,6 +180,7 @@ def downgrade():
     op.drop_table('tags')
     op.drop_table('tag_category')
     op.drop_table('training_plan_following')
+    op.drop_table('training_plan_like')
     op.drop_table('training_plan_comments')
     op.drop_table('activities')
     op.drop_table('training_plans')
