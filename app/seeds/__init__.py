@@ -6,6 +6,7 @@ from .tag_category import seed_tag_category, undo_tag_category
 from .tags import seed_tag, undo_tag
 from .training_plan_comments import seed_training_plan_comment, undo_training_plan_comment
 from .training_plan_following import seed_training_plan_following, undo_training_plan_following
+from .training_plan_like import seed_training_plan_like, undo_training_plan_like
 from .training_plan_tags import seed_training_plan_tag, undo_training_plan_tag
 from .training_plans import seed_training_plan, undo_training_plan
 from .training_plan_activities import seed_training_plan_activities, undo_training_plan_activities
@@ -32,6 +33,7 @@ def seed():
         undo_tag()
         undo_training_plan_comment()
         undo_training_plan_following()
+        undo_training_plan_like()
         undo_training_plan_tag()
         undo_training_plan()
         undo_training_plan_activities()
@@ -43,6 +45,7 @@ def seed():
     seed_training_plan()
     seed_training_plan_comment()
     seed_training_plan_following()
+    seed_training_plan_like()
     seed_training_plan_tag()
     seed_training_plan_activities()
     # Add other seed functions here
@@ -58,6 +61,7 @@ def undo():
     undo_tag()
     undo_training_plan_comment()
     undo_training_plan_following()
+    undo_training_plan_like()
     undo_training_plan_tag()
     undo_training_plan()
     undo_training_plan_activities()

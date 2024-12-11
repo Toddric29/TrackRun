@@ -21,6 +21,7 @@ class TrainingPlan(db.Model):
     # activities = db.relationship('Activity', back_populates='training_plans')
     training_plan_comments = db.relationship('TrainingPlanComment', back_populates='training_plans', cascade="all, delete-orphan")
     training_plan_following = db.relationship('TrainingPlanFollowing', back_populates='training_plans', cascade="all, delete-orphan")
+    training_plan_like = db.relationship('TrainingPlanLike', back_populates='training_plans', cascade="all, delete-orphan")
     training_plan_tags = db.relationship('TrainingPlanTag', back_populates='training_plans', cascade="all, delete-orphan")
     training_plan_activities = db.relationship('TrainingPlanActivity', back_populates='training_plans')
 
