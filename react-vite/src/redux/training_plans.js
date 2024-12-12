@@ -1,4 +1,4 @@
-import { fetchFollowings } from "./users"
+import { fetchFollowings, fetchLikes } from "./users"
 
 // Action Types
 const LOAD_PLANS = 'plans/loadPlans'
@@ -113,6 +113,31 @@ export const fetchFollow = (planId, payload) => async (dispatch) => {
 
 export const fetchUnfollow = (planId) => async (dispatch) => {
     const res = await fetch(`/api/training-plans/${planId}/follow`, {
+        method: 'DELETE'
+    })
+    return res
+}
+
+export const fetchLike = (planId, payload) => async (dispatch) => {
+    const res = await fetch(`/api/training-plans/${planId}/like`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(fetchLikes());
+    } else {
+        console.error('Fetch error:', res.statusText);
+    }
+    return res;
+};
+
+export const fetchUnlike = (planId) => async (dispatch) => {
+    const res = await fetch(`/api/training-plans/${planId}/like`, {
         method: 'DELETE'
     })
     return res

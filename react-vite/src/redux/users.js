@@ -3,6 +3,7 @@ const MY_PLANS = 'users/myPlan'
 const LOAD_FOLLOWERS = 'users/loadFollowers'
 const LOAD_FOLLOW = 'plans/loadFollow'
 const LOAD_UNFOLLOW = 'plans/loadUnfollow'
+const LOAD_LIKES = 'users/loadLikes'
 
 const getAllUsers = (payload) => ({
     type: LOAD_USERS,
@@ -21,6 +22,11 @@ const myPlan = (payload) => ({
 
 const getFollowers = (payload) => ({
     type: LOAD_FOLLOWERS,
+    payload
+})
+
+const getLikes = (payload) => ({
+    type: LOAD_LIKES,
     payload
 })
 
@@ -78,10 +84,28 @@ export const fetchFollowings = () => async (dispatch) => {
     }
 };
 
+export const fetchLikes = () => async (dispatch) => {
+    try{
+        const res = await fetch(`/api/users/training-plans/like`)
+        if (res.ok) {
+            const data = await res.json()
+            dispatch(getLikes(data))
+            return data;
+        }
+        else {
+            throw res;
+        }
+    } catch (error) {
+        const err = await error
+        return err
+    }
+};
+
 const initialState = {
     allUsers: {},
     myPlans: {},
-    plansFollowed: {}
+    plansFollowed: {},
+    plansLiked: {}
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -104,6 +128,11 @@ const usersReducer = (state = initialState, action) => {
         case LOAD_FOLLOWERS: {
             newState = {...state};
             newState.plansFollowed = action.payload
+            return newState
+        }
+        case LOAD_LIKES: {
+            newState = {...state};
+            newState.plansLiked = action.payload
             return newState
         }
         default:

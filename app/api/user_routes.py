@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
-from app.models import User, TrainingPlan, TrainingPlanFollowing
+from app.models import User, TrainingPlan, TrainingPlanFollowing, TrainingPlanLike
 
 user_routes = Blueprint('users', __name__)
 
@@ -56,6 +56,23 @@ def plans_followed():
                 'created_at': followed_plan.created_at
             }
             for followed_plan in followed_plans
+        ]
+
+    return jsonify(response)
+
+@user_routes.route('/training-plans/like')
+def plans_liked():
+    liked_plans = TrainingPlanLike.query.join(TrainingPlan).filter(TrainingPlanLike.user_id == current_user.id).all()
+
+    response = [
+            {
+                'id': liked_plan.training_plans.id,
+                'user_id': liked_plan.user_id,
+                'title': liked_plan.training_plans.title,
+                'body': liked_plan.training_plans.body,
+                'created_at': liked_plan.created_at
+            }
+            for liked_plan in liked_plans
         ]
 
     return jsonify(response)
