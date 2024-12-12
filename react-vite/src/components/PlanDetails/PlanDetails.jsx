@@ -8,7 +8,7 @@ import * as planActions from '../../redux/training_plans'
 import * as activitiesActions from '../../redux/activities'
 import * as planCommentsActions from '../../redux/training_plan_comments'
 import * as tagActions from '../../redux/tags'
-import { fetchFollowings } from '../../redux/users';
+import { fetchFollowings, fetchLikes } from '../../redux/users';
 import CreateActivityModal from '../NewActivityModal/NewActivityModal';
 import Activity from '../Activity/Activity';
 import CreatePlanCommentModal from '../NewPlanCommentModal/NewPlanCommentModal';
@@ -29,10 +29,12 @@ const PlanDetails = () => {
     const plan = plans[planId];
     const followedPlans = useSelector((state) => state.userState.plansFollowed)
     const alreadyFollowed = Object.values(followedPlans).find(followedPlan => followedPlan.id == planId)
+    const likedPlans = useSelector((state) => state.userState.plansLiked)
+    const alreadyLiked = Object.values(likedPlans).find(likedPlan => likedPlan.id == planId)
     const activities = useSelector((state) => state.activities.planActivities)
     const planComments = useSelector((state) => state.planComments.planComments)
     const tags = useSelector((state) => state.tags.tags)
-    console.log(plan)
+    console.log(likedPlans)
 
     useEffect(() => {
         if (!showMenu) return;
@@ -52,7 +54,10 @@ const PlanDetails = () => {
 
         useEffect(() => {
           if (user) {
-            dispatch(fetchFollowings())
+            Promise.all([
+              dispatch(fetchFollowings()),
+              dispatch(fetchLikes())
+            ])
           }
         }, [dispatch, user])
 
@@ -78,6 +83,19 @@ const PlanDetails = () => {
         else {
             dispatch(planActions.fetchFollow(planId, payload))
                 .then(() => dispatch(fetchFollowings()));
+        }
+      }
+
+      const like = (e) => {
+        const payload = {id: planId}
+        e.preventDefault();
+        if (alreadyLiked) {
+            dispatch(planActions.fetchUnlike(planId, payload))
+                .then(() => dispatch(fetchLikes()));
+        }
+        else {
+            dispatch(planActions.fetchLike(planId, payload))
+                .then(() => dispatch(fetchLikes()));
         }
       }
 
@@ -132,6 +150,15 @@ const PlanDetails = () => {
                 title={alreadyFollowed ? "Follow this plan" : "Unfollow this plan"}>
                     {alreadyFollowed ?
                     "Unfollow this plan" : "Follow this plan"}
+                    </button>}
+                </div>
+                <div className='follow-section'>
+                {user !== null &&<button
+                onClick={like}
+                className="follow-button"
+                title={alreadyLiked ? "Like this plan" : "Unlike this plan"}>
+                    {alreadyLiked ?
+                    "Unlike this plan" : "Like this plan"}
                     </button>}
                 </div>
                     </div>
