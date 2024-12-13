@@ -110,7 +110,7 @@ const PlanDetails = () => {
                 );
     }
     const hasTags = Object.values(tags).length > 0;
-
+    const vav = 1
     return (
         <div className='training-plan-details'>
             <div className='training-plan-section'>
@@ -153,7 +153,7 @@ const PlanDetails = () => {
                     </button>}
                 </div>
                 <div className='follow-section'>
-                {user !== null &&<button
+                {user !== null && vav == 4 &&<button
                 onClick={like}
                 className="follow-button"
                 title={alreadyLiked ? "Like this plan" : "Unlike this plan"}>
