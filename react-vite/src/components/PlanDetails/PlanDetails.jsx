@@ -110,7 +110,7 @@ const PlanDetails = () => {
                 );
     }
     const hasTags = Object.values(tags).length > 0;
-    const vav = 1
+    // const vav = 1
     return (
         <div className='training-plan-details'>
             <div className='training-plan-section'>
@@ -143,24 +143,6 @@ const PlanDetails = () => {
                 </span>}
             </div>
             <div>
-                <div className='follow-section'>
-                {user !== null &&<button
-                onClick={follow}
-                className="follow-button"
-                title={alreadyFollowed ? "Follow this plan" : "Unfollow this plan"}>
-                    {alreadyFollowed ?
-                    "Unfollow this plan" : "Follow this plan"}
-                    </button>}
-                </div>
-                <div className='follow-section'>
-                {user !== null && vav == 4 &&<button
-                onClick={like}
-                className="follow-button"
-                title={alreadyLiked ? "Like this plan" : "Unlike this plan"}>
-                    {alreadyLiked ?
-                    "Unlike this plan" : "Like this plan"}
-                    </button>}
-                </div>
                     </div>
                     <div className='plan-comments-section'>
                     <h2 className='comment-title'>Plan Comments</h2>
@@ -235,6 +217,26 @@ const PlanDetails = () => {
           modalComponent={<CreateTagModal planId={plan.id}/>} />
       </div>
     )}
+    <div className='button-section'>
+    <span className='follow-section'>
+      {user !== null &&<button
+      onClick={follow}
+      className="follow-button"
+      title={alreadyFollowed ? "Follow this plan" : "Unfollow this plan"}>
+        {alreadyFollowed ?
+        "Unfollow this plan" : "Follow this plan"}
+        </button>}
+        </span>
+        <span className='follow-section'>
+          {user !== null &&<button
+          onClick={like}
+          className="follow-button"
+          title={alreadyLiked ? "Like this plan" : "Unlike this plan"}>
+            {alreadyLiked ?
+            "Unlike this plan" : "Like this plan"}
+            </button>}
+            </span>
+    </div>
         </div>
     )
 }
