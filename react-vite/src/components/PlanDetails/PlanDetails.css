@@ -97,13 +97,6 @@
     flex-direction: column;
 }
 
-.t-title {
-    text-align: center;
-    color: lightslategray;
-    text-decoration: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .button-section {
     display: flex;
     justify-content: center;

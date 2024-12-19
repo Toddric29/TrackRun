@@ -309,6 +309,21 @@ def get_plans_by_tag(tag_id):
        []
     }), 200
 
+##Get all followers for a training plan
+@training_plan_routes.route('/<int:training_plan_id>/follow')
+def get_followers(training_plan_id):
+    followers = TrainingPlanFollowing.query.filter(TrainingPlanFollowing.training_plan_id  == training_plan_id).count()
+
+    if not followers:
+        return jsonify({"error": "Training plan couldn't be found"}), 404
+
+    # response = [
+    #     {
+    #         'user_id': follower.training_plans.user_id,
+    #         'id': follower.training_plans.id
+    #     } for follower in followers.training_plans]
+    return jsonify(followers)
+
 #Follow a Training Plan
 @training_plan_routes.route('/<int:training_plan_id>/follow', methods=['POST'])
 @login_required
