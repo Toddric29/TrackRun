@@ -34,7 +34,7 @@ const PlanDetails = () => {
     const activities = useSelector((state) => state.activities.planActivities)
     const planComments = useSelector((state) => state.planComments.planComments)
     const tags = useSelector((state) => state.tags.tags)
-    console.log(likedPlans)
+    console.log(plan)
 
     useEffect(() => {
         if (!showMenu) return;
