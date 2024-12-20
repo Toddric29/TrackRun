@@ -3,6 +3,7 @@ import { fetchFollowings, fetchLikes } from "./users"
 // Action Types
 const LOAD_PLANS = 'plans/loadPlans'
 const LOAD_PLAN  = 'plans/loadPlan'
+const LOAD_PLA  = 'plans/loadPla'
 const NEW_PLAN = 'plans/newPlan'
 
 // Action Creators
@@ -13,6 +14,11 @@ const loadPlans = (payload) => ({
 
 const loadPlan = (payload) => ({
     type: LOAD_PLAN,
+    payload
+})
+
+const loadPla = (payload) => ({
+    type: LOAD_PLA,
     payload
 })
 
@@ -93,6 +99,25 @@ export const removePlan = (planId) => async () => {
     return res
 }
 
+export const fetchPlanFollows = (planId) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/training-plans/${planId}/follow`);
+        if(res.ok) {
+            const data = await res.json();
+            if(data.errors) {
+                throw data
+            }
+            dispatch(loadPla(data))
+            return data
+        } else {
+            throw res
+        }
+    } catch (error) {
+        const err = error.json()
+        return err
+    }
+}
+
 export const fetchFollow = (planId, payload) => async (dispatch) => {
     const res = await fetch(`/api/training-plans/${planId}/follow`, {
         method: 'POST',
@@ -116,6 +141,26 @@ export const fetchUnfollow = (planId) => async (dispatch) => {
         method: 'DELETE'
     })
     return res
+}
+
+export const fetchPlanLikes = (planId) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/training-plans/${planId}/like`);
+        if(res.ok) {
+            const data = await res.json();
+            console.log(data, '<-----DATA')
+            if(data.errors) {
+                throw data
+            }
+            dispatch(fetchPlan(data))
+            return data
+        } else {
+            throw res
+        }
+    } catch (error) {
+        const err = error.json()
+        return err
+    }
 }
 
 export const fetchLike = (planId, payload) => async (dispatch) => {
@@ -164,11 +209,21 @@ const plansReducer = (state = initialState, action) => {
               newState.planDetails = {...newState.planDetails}
           }
           else {
-              newState.planDetails = []
+              newState.planDetails = {}
           }
           newState.planDetails[action.payload.id] = {...action.payload}
           return newState
       }
+      case LOAD_PLA: {
+        const newState = { ...state };
+        if (newState.planDetails) {
+            newState.planDetails.followers = action.payload;
+        } else {
+            newState.planDetails = {};
+        }
+        // Assuming action.payload is a number
+        return newState;
+    }
       case NEW_PLAN: {
         if (!state[action.id]) {
             const newState = {

@@ -312,16 +312,12 @@ def get_plans_by_tag(tag_id):
 ##Get all followers for a training plan
 @training_plan_routes.route('/<int:training_plan_id>/follow')
 def get_followers(training_plan_id):
+    plan = TrainingPlan.query.get(training_plan_id)
+    if not plan:
+        return jsonify({"error": "Training Plan not found"}), 404
+
     followers = TrainingPlanFollowing.query.filter(TrainingPlanFollowing.training_plan_id  == training_plan_id).count()
 
-    if not followers:
-        return jsonify({"error": "Training plan couldn't be found"}), 404
-
-    # response = [
-    #     {
-    #         'user_id': follower.training_plans.user_id,
-    #         'id': follower.training_plans.id
-    #     } for follower in followers.training_plans]
     return jsonify(followers)
 
 #Follow a Training Plan
@@ -358,6 +354,17 @@ def unfollow_question(training_plan_id):
        'message': 'Training Plan unsaved'
     }
     return jsonify(res), 200
+
+##Get all likes for a training plan
+@training_plan_routes.route('/<int:training_plan_id>/like')
+def get_likes(training_plan_id):
+    plan = TrainingPlan.query.get(training_plan_id)
+    if not plan:
+        return jsonify({"error": "Training Plan not found"}), 404
+
+    likes = TrainingPlanLike.query.filter(TrainingPlanLike.training_plan_id  == training_plan_id).count()
+
+    return jsonify(likes)
 
 #Like a Training Plan
 @training_plan_routes.route('/<int:training_plan_id>/like', methods=['POST'])
