@@ -127,7 +127,7 @@ const PlanDetails = () => {
                 <h2 className='body'>{plan.body}
                   <span className='username'>  --created by {plan.username}</span>
                 </h2>
-                <h3>This plan has {plans.followers} followers</h3>
+                {/* <h3>This plan has {plans.followers} followers</h3> */}
                 </div>
             </div>
             <div className='activities-section'>
