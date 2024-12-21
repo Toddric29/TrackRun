@@ -14,12 +14,16 @@ def training_plans():
     return [training_plan.to_dict() for training_plan in training_plans]
 
 ##Get training plan details
-@training_plan_routes.route('/<int:id>')
-def get_plan(id):
-    plan = TrainingPlan.query.options(joinedload(TrainingPlan.user, innerjoin=True)).get(id)
+@training_plan_routes.route('/<int:training_plan_id>')
+def get_plan(training_plan_id):
+    plan = TrainingPlan.query.options(joinedload(TrainingPlan.user, innerjoin=True)).get(training_plan_id)
 
     if not plan:
         return jsonify({"error": "Training plan couldn't be found"}), 404
+
+    followers = TrainingPlanFollowing.query.filter(TrainingPlanFollowing.training_plan_id  == training_plan_id).count()
+
+    likes = TrainingPlanLike.query.filter(TrainingPlanLike.training_plan_id  == training_plan_id).count()
 
     return jsonify({
         'id': plan.id,
@@ -28,7 +32,9 @@ def get_plan(id):
         'username': plan.user.username,
         'user_id': plan.user.id,
         'created_at': plan.created_at,
-        'updated_at': plan.updated_at
+        'updated_at': plan.updated_at,
+        'followers': followers,
+        'likes': likes
     })
 
 ##Get all activities for a training plan
@@ -309,17 +315,6 @@ def get_plans_by_tag(tag_id):
        []
     }), 200
 
-##Get all followers for a training plan
-@training_plan_routes.route('/<int:training_plan_id>/follow')
-def get_followers(training_plan_id):
-    plan = TrainingPlan.query.get(training_plan_id)
-    if not plan:
-        return jsonify({"error": "Training Plan not found"}), 404
-
-    followers = TrainingPlanFollowing.query.filter(TrainingPlanFollowing.training_plan_id  == training_plan_id).count()
-
-    return jsonify(followers)
-
 #Follow a Training Plan
 @training_plan_routes.route('/<int:training_plan_id>/follow', methods=['POST'])
 @login_required
@@ -354,17 +349,6 @@ def unfollow_question(training_plan_id):
        'message': 'Training Plan unsaved'
     }
     return jsonify(res), 200
-
-##Get all likes for a training plan
-@training_plan_routes.route('/<int:training_plan_id>/like')
-def get_likes(training_plan_id):
-    plan = TrainingPlan.query.get(training_plan_id)
-    if not plan:
-        return jsonify({"error": "Training Plan not found"}), 404
-
-    likes = TrainingPlanLike.query.filter(TrainingPlanLike.training_plan_id  == training_plan_id).count()
-
-    return jsonify(likes)
 
 #Like a Training Plan
 @training_plan_routes.route('/<int:training_plan_id>/like', methods=['POST'])
