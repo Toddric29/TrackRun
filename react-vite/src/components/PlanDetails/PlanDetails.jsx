@@ -34,9 +34,7 @@ const PlanDetails = () => {
     const activities = useSelector((state) => state.activities.planActivities)
     const planComments = useSelector((state) => state.planComments.planComments)
     const tags = useSelector((state) => state.tags.tags)
-    const followers = plans.followers
-    const likes = plans.likes
-    console.log(plans.followers)
+    console.log(plans)
 
     useEffect(() => {
         if (!showMenu) return;
@@ -69,7 +67,6 @@ const PlanDetails = () => {
           dispatch(fetchPlan(planId)),
           dispatch(activitiesActions.fetchPlanActivities(planId)),
           dispatch(tagActions.fetchPlanTags(planId)),
-          dispatch(planActions.fetchPlanFollows(planId))
         ])
           .then(() => setIsLoaded(true))
     }, [planId, dispatch]);
@@ -82,13 +79,11 @@ const PlanDetails = () => {
         if (alreadyFollowed) {
             dispatch(planActions.fetchUnfollow(planId, payload))
                 .then(() => dispatch(fetchFollowings()))
-                .then(() => dispatch(planActions.fetchPlanFollows(planId)))
                 .then(() => dispatch(fetchPlan(planId)));
         }
         else {
             dispatch(planActions.fetchFollow(planId, payload))
                 .then(() => dispatch(fetchFollowings()))
-                .then(() => dispatch(planActions.fetchPlanFollows(planId)))
                 .then(() => dispatch(fetchPlan(planId)));
         }
       }
@@ -99,11 +94,12 @@ const PlanDetails = () => {
         if (alreadyLiked) {
             dispatch(planActions.fetchUnlike(planId, payload))
                 .then(() => dispatch(fetchLikes()))
-                .then(() => dispatch(planActions.fetchPlanLikes(planId)));
+                .then(() => dispatch(fetchPlan(planId)));
         }
         else {
             dispatch(planActions.fetchLike(planId, payload))
-                .then(() => dispatch(fetchLikes()));
+                .then(() => dispatch(fetchLikes()))
+                .then(() => dispatch(fetchPlan(planId)));
         }
       }
 
@@ -127,7 +123,8 @@ const PlanDetails = () => {
                 <h2 className='body'>{plan.body}
                   <span className='username'>  --created by {plan.username}</span>
                 </h2>
-                {/* <h3>This plan has {plans.followers} followers</h3> */}
+                {/* <h3>This plan has {plan.followers} followers</h3>
+                <h3>This plan has {plan.likes} likes</h3> */}
                 </div>
             </div>
             <div className='activities-section'>
